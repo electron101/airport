@@ -20,7 +20,8 @@
     <!-- <link rel="stylesheet" href="css/bootstrap&#45;datetimepicker.min.css"> -->
 
     <style>
-        body {
+        body 
+	{
           padding-top: 20px;
           margin-left: -10px;
         }
