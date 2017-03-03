@@ -11,7 +11,8 @@ header('content-type text/html charset=utf-8');
 /* Подключаем файл настроек базы данных */
 include_once('connect_bd.php');
 
-$act = isset($_GET['act']) ? $_GET['act'] : 'login';
+$act = isset($_GET['act']) ? $_GET['act'] : 'main';
+
 
 switch ($act) 
 {
@@ -21,6 +22,10 @@ switch ($act)
 	
 	case 'registry':
 		require 'templates/registry.php';
+		break;
+	
+	case 'main':
+		require 'templates/main.php';
 		break;
 	
 	default:
