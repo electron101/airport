@@ -13,7 +13,6 @@ include_once('connect_bd.php');
 
 $act = isset($_GET['act']) ? $_GET['act'] : 'main';
 
-
 switch ($act) 
 {
 	case 'login':

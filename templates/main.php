@@ -147,12 +147,12 @@
 
 	<div class="collapse navbar-collapse ">
           <ul class="nav navbar-nav navbar-right ">            
-	    <li><a href="?act=lk" class="white"><span class="glyphicon glyphicon-user  aria-hidden="true">
+	    <li><a href="?act=lk" class="text-teal"><span class="glyphicon glyphicon-user  aria-hidden="true">
                                   </span><?php echo " ".$_SESSION['login']. " (".$role.")" ?>
                 </a>
             </li>
             <li>
-              <a href="?act=logout"><span class="glyphicon glyphicon-log-out" aria-hidden="true">
+              <a href="?act=logout" class="text-teal"><span class="glyphicon glyphicon-log-out" aria-hidden="true">
                                   </span> Выйти</a>
             </li>
           </ul>
