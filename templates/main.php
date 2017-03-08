@@ -1,175 +1,101 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php require 'templates/header.php' ?>
+<style>
+	body {
+	  padding-top: 95px;
+	}    
 
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+	.left_krai {
+		padding-left: 0px;
+	}
+	
+	.interval {
+		margin-bottom: -20px;
+	}
 
-    <title>Система заявок</title>
+	textarea {
+    resize: none; /* Запрещаем изменять размер */
+   } 
 
-    <!-- Bootstrap core CSS -->
-    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-    <!-- <link href="bootstrap/css/dashboard.css" rel="stylesheet"> -->
-    <!-- <link href="bootstrap/css/bootstrap&#45;select.css" rel="stylesheet"> -->
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/AdminLTE.css">
-    <link rel="stylesheet" href="css/skin-blue.css">
-    <!-- <link rel="stylesheet" href="css/bootstrap&#45;datetimepicker.min.css"> -->
+</style>
 
-    <style>
-        body 
-	{
-          padding-top: 50px;
-          margin-left: -10px;
-        }
+<div class="col-sm-12 col-sm-offset-0 left_krai">
+<!-- Контейнер, содержащий форму обратной связи -->
+	<div class="panel panel-info">
+		<!-- Заголовок контейнера -->
+		<div class="panel-heading panel-title">
+			<h1 class="panel-title">Укажите маршрут, чтобы найти выгодные авиабилеты </h1>
+		</div>
+		<!-- Содержимое контейнера -->
+		<div class="panel-body">
+						
+			<div class="alert alert-success hidden" id="success-alert">
+				<strong>Успешно!</strong> Запись добавлена
+			</div>
+			<div class="alert alert-danger hidden" id="danger-alert">
+				<strong>Неудача!</strong> Что то пошло не так
+			</div>
+			<div class="alert alert-danger hidden" id="client-not-select-alert">
+				Клиент не выбран!
+			</div>
+			<div class="hidden" id="success-alert-btn">
+				<a class="btn btn-sm btn-info" href="?act=ticket_add" role="button">
+					<span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Назад</a>
+			</div>
+			
+			<form class="form-inline" role="form" id="SearchTicket">        
 
-        .vniz{
-            padding-top: 10px;
-        }
+				<!-- #формирование ниспадающего списка -->
+				<div class="form-group has-feedback">
+					<label for="inputText">От кого</label>
+					<select id="client" name = "client" class="form-control selectpicker show-tick" data-live-search="true" onChange="info_client(this.value)" required>
+						<option value="" disabled selected>Клиент</option>
+				<?php
+					#подготовка запроса
+					$result = $mysqli->query("SELECT id, fio FROM clients");
+					if ($result)
+				  	{
+						#заполнение списка содержимым
+						while ($row = $result->fetch_array())
+							print "<OPTION value=".$row['id'].">".$row['fio']."</OPTION>\n";
+					}
+				?>
+					</select>
+				</div>
+				
+				<!-- #формирование ниспадающего списка -->
+				<div class="form-group has-feedback">
+					<label for="inputText">Кому</label>
+					<select id="user" name = "user" class="form-control selectpicker show-tick" required>
+						<option value="" disabled selected>Исполнитель</option>
+				<?php
+					#подготовка запроса
+					$result = $mysqli->query("SELECT id, fio, login FROM users WHERE priv = 2");
+					if ($result)
+				  	{
+						#заполнение списка содержимым
+						while ($row = $result->fetch_array())
+							print "<OPTION value=".$row['id'].">".$row['fio'].' ('.$row['login'].')'."</OPTION>\n";
+					}
+				?>
+					</select>
+				</div>
 
-        .sidebar
-        {
-            overflow:  hidden;
-            /*display: block;*/
-            top: 0;
-            left: 0;
-            padding-top: 50px;
-            padding-left: 0px;
-            min-height: 100%;
-            width: 230px;
-            z-index: 810;
-            -webkit-transition: -webkit-transform 0.3s cubic-bezier(0.32, 1.25, 0.375, 1.15);
-            -moz-transition: -moz-transform 0.3s cubic-bezier(0.32, 1.25, 0.375, 1.15);
-            -o-transition: -o-transform 0.3s cubic-bezier(0.32, 1.25, 0.375, 1.15);
-            transition: transform 0.3s cubic-bezier(0.32, 1.25, 0.375, 1.15);
+				<div class="form-group has-feedback">
+				  <label>Тема</label>
+				  <input type="text" name="theme" class="form-control" placeholder="Тема" required>
+				  <span class="glyphicon form-control-feedback"></span>
+				</div> 
 
-            background: #222d32;
-        }
+				<div class="form-group">
+				  <button id="btn_search" class="btn btn-lg btn-success" type="submit">
+				  	<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Найти</button>
+				</div>
 
-        .skin-blue .navbar .nav > li > a {color: #ffffff; }         /*цвет ссылок в навигации*/
-        .skin-blue .navbar .nav > li > a:hover,                     /*без наведения - по умолчанию*/
-        .skin-blue .navbar .nav > li > a:focus {color: #222d32; };  /*при наведении*/
-        
-        .skin-blue .navbar-header .logo 
-        {
-            background-color: #367fa9;
-            color: #ffffff;
-            border-bottom: 0px solid transparent;
-        }
+			</form>
+		</div>
+	</div>
+</div>
 
-        .navbar-header .logo 
-        {
-            display: block;
-            float: left;
-            height: 50px;
-            font-size: 20px;
-            line-height: 50px;
-            text-align: left;
-            width: 230px;
-            /*font-family: Helvetica, Arial, sans-serif;*/
-            padding: 0px;
-            font-weight: 300;
-        }
+<script src="js/search_ticket.js"></script>
 
-        .skin-blue .navbar .navbar-header > a {color: #ffffff; }         /*цвет ссылок в навигации*/
-        .skin-blue .navbar .navbar-header > a:hover,                     /*без наведения - по умолчанию*/
-        .skin-blue .navbar .navbar-header > a:focus {color: #222d32; };  /*при наведении*/
-        
-
-    </style>
-
-
-    <!-- Just for debugging purposes. Don't actually copy this line! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <script src="jquery/jquery-3.1.1.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-    <!-- <script src="bootstrap/js/bootstrap&#45;select.min.js"></script> -->
-    <!-- <script src="bootstrap/js/i18n/defaults&#45;ru_RU.min.js"></script> -->
-    <!-- <script src="js/app.js"></script> -->
-    <!-- <script src="bootstrap/js/bootstrap&#45;paginator.js"></script> -->
-    <!-- <script src="js/moment&#45;with&#45;locales.min.js"></script> -->
-    <!-- <script src="js/bootstrap&#45;datetimepicker.min.js"></script> -->
-<!--
-    <script src="js/icheck.min.js"></script>
-    <script src="js/titlealert.js"></script>
-    <script src="js/jquery.noty.packaged.min.js"></script>
-    <script src="js/ion.sound.min.js"></script>
-    <script src="js/moment-with-locales.min.js"></script>
-    <script src="js/moment-timezone-with-data-2010-2020.min.js"></script>
-    <script src="js/moment-with-langs.js"></script>
-    <script src="js/jquery-ui-1.10.4.custom.min.js"></script>
-    <script src="js/chosen.jquery.min.js"></script>
-    <script src="js/bootbox.min.js"></script>
--->
-
-  </head>
-
-  <body>
-
-    <div class="navbar bg-blue navbar-fixed-top" role="navigation">
-      <div class="container-fluid">
-        <div class="navbar-header">
-
-        </div>
-        <?php
-            switch ($_SESSION['priv']) 
-            {
-                /* админ */
-                case 0:                    
-                $role = "Администратор";
-                    break;
-
-                /* координатор */
-                case 1:                    
-                $role = "Координатор";
-                    break;
-
-                /* исполнитель */
-                case 2:                    
-                $role = "Исполнитель";
-                    break;
-
-                default:
-                $role = "";
-                    break;
-            }
-        ?>
-
-	<div class="collapse navbar-collapse ">
-          <ul class="nav navbar-nav navbar-right ">            
-	    <li><a href="?act=lk" class="text-teal"><span class="glyphicon glyphicon-user  aria-hidden="true">
-                                  </span><?php echo " ".$_SESSION['login']. " (".$role.")" ?>
-                </a>
-            </li>
-            <li>
-              <a href="?act=logout" class="text-teal"><span class="glyphicon glyphicon-log-out" aria-hidden="true">
-                                  </span> Выйти</a>
-            </li>
-          </ul>
-        </div><!--/.nav-collapse -->
-     
-	 </div>
-    </div>
-
-<div class="container">
-
-      <div class="starter-template">
-        <h1>Bootstrap starter template</h1>
-        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-      </div>
-
-    </div><!-- /.container -->
-
-
-  </body>
-</html>
+<?php require 'templates/footer.php' ?>
