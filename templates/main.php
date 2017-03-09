@@ -42,11 +42,24 @@
 					<span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Назад</a>
 			</div>
 			
-			<form class="form-inline" role="form" id="SearchTicket">        
+		<div class="row">		
+			<div class="col-md-3">
+					<label for="inputText">От куда</label>
+			</div>
+			<div class="col-md-3">
+					<label for="inputText">Куда</label>
+			</div>
+			<div class="col-md-3">
+					<label for="inputText">Дата</label>
+			</div>
+		</div>
+			
+			<form class="form-inline " role="form" id="SearchTicket">        
+			<div class="row">		
 
 				<!-- #формирование ниспадающего списка -->
+				<div class="col-md-3 ">
 				<div class="form-group has-feedback">
-					<label for="inputText">От кого</label>
 					<select id="client" name = "client" class="form-control selectpicker show-tick" data-live-search="true" onChange="info_client(this.value)" required>
 						<option value="" disabled selected>Клиент</option>
 				<?php
@@ -61,10 +74,11 @@
 				?>
 					</select>
 				</div>
+				</div>
 				
 				<!-- #формирование ниспадающего списка -->
+				<div class="col-md-3 ">
 				<div class="form-group has-feedback">
-					<label for="inputText">Кому</label>
 					<select id="user" name = "user" class="form-control selectpicker show-tick" required>
 						<option value="" disabled selected>Исполнитель</option>
 				<?php
@@ -79,11 +93,11 @@
 				?>
 					</select>
 				</div>
+				</div>
 	
-				<div class="form-group">
-				<div class="col-md-12 has-feedback">
+				<div class="col-md-3 ">
+				<div class="form-group has-feedback">
 				<!-- Элемент HTML с id равным datetimepicker1 -->
-				  <label>Начало периода</label>
 				  <div class=" input-group date input-append" id="datetimepicker_start">
 					<span class="input-group-addon">
 					  <i class="fa fa-calendar"></i>
@@ -104,19 +118,21 @@
 						$('#datetimepicker_start').datetimepicker({
 							minView : 2,
 							// defaultDate: new Date(),
-							defaultDate: "11/1/2013",
+							// defaultDate: "11/1/2013",
 							autoclose: true,
 							format: 'dd-mm-yyyy'
 						});
-						$('#datetimepicker_start).data("DateTimePicker").date(moment(date));
 					});
 				</script>
 
-				<div class="form-group">
-				  <button id="btn_search" class="btn btn-lg btn-success" type="submit">
-				  	<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Найти</button>
+				<div class="col-md-3 ">
+					<div class="form-group pull-right">
+					  <button id="btn_search" class="btn btn-info " type="submit">
+						<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Найти билеты</button>
+					</div>
 				</div>
 
+				</div>
 			</form>
 		</div>
 	</div>
