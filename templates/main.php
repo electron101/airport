@@ -79,12 +79,38 @@
 				?>
 					</select>
 				</div>
-
-				<div class="form-group has-feedback">
-				  <label>Тема</label>
-				  <input type="text" name="theme" class="form-control" placeholder="Тема" required>
-				  <span class="glyphicon form-control-feedback"></span>
-				</div> 
+	
+				<div class="form-group">
+				<div class="col-md-12 has-feedback">
+				<!-- Элемент HTML с id равным datetimepicker1 -->
+				  <label>Начало периода</label>
+				  <div class=" input-group date input-append" id="datetimepicker_start">
+					<span class="input-group-addon">
+					  <i class="fa fa-calendar"></i>
+					</span>
+					<input type="text"  name="date_start" class="form-control input-sm" required>
+					</input>
+					<span class="glyphicon form-control-feedback"></span>
+				  </div>
+				  </div>
+				</div>
+				<!-- Инициализация виджета "Bootstrap datetimepicker" -->
+				<script type="text/javascript">
+					$(function () 
+					{
+					// Идентификатор элемента HTML (например: #datetimepicker1), 
+					// datetimepicker для которого необходимо инициализировать 
+					// виджет "Bootstrap datetimepicker"
+						$('#datetimepicker_start').datetimepicker({
+							minView : 2,
+							// defaultDate: new Date(),
+							defaultDate: "11/1/2013",
+							autoclose: true,
+							format: 'dd-mm-yyyy'
+						});
+						$('#datetimepicker_start).data("DateTimePicker").date(moment(date));
+					});
+				</script>
 
 				<div class="form-group">
 				  <button id="btn_search" class="btn btn-lg btn-success" type="submit">

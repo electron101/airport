@@ -13,12 +13,12 @@
 
     <!-- Bootstrap core CSS -->
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-    <!-- <link href="bootstrap/css/dashboard.css" rel="stylesheet"> -->
-    <!-- <link href="bootstrap/css/bootstrap&#45;select.css" rel="stylesheet"> -->
+    <!-- <link href="css/dashboard.css" rel="stylesheet"> -->
+    <link href="css/bootstrap-select.css" rel="stylesheet">
     <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/AdminLTE.css">
     <link rel="stylesheet" href="css/skin-blue.css">
-    <!-- <link rel="stylesheet" href="css/bootstrap&#45;datetimepicker.min.css"> -->
+    <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
 
     <style>
 	
@@ -94,7 +94,13 @@
     <![endif]-->
     <script src="jquery/jquery-3.1.1.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
-
+    <script src="js/bootstrap-select.min.js"></script>
+    <!-- <script src="js/i18n/defaults&#45;ru_RU.min.js"></script> -->
+    <script src="js/app.js"></script>
+    <script src="js/bootstrap-paginator.js"></script>
+    <script src="js/moment-with-locales.min.js"></script>
+    <script src="js/bootstrap-datetimepicker.min.js"></script>
+    <!-- <script src="js/bootstrap&#45;datetimepicker.ru.js" charset="UTF&#45;8"></script> -->
   </head>
 
   <body class="skin-blue" style="">
