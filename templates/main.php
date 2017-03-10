@@ -79,16 +79,16 @@
 				<!-- #формирование ниспадающего списка -->
 				<div class="col-md-3 ">
 				<div class="form-group has-feedback">
-					<select id="user" name = "user" class="form-control selectpicker show-tick" required>
-						<option value="" disabled selected>Исполнитель</option>
+					<select id="client" name = "client" class="form-control selectpicker show-tick" data-live-search="true" onChange="info_client(this.value)" required>
+						<option value="" disabled selected>Клиент</option>
 				<?php
 					#подготовка запроса
-					$result = $mysqli->query("SELECT id, fio, login FROM users WHERE priv = 2");
+					$result = $mysqli->query("SELECT id, fio FROM clients");
 					if ($result)
 				  	{
 						#заполнение списка содержимым
 						while ($row = $result->fetch_array())
-							print "<OPTION value=".$row['id'].">".$row['fio'].' ('.$row['login'].')'."</OPTION>\n";
+							print "<OPTION value=".$row['id'].">".$row['fio']."</OPTION>\n";
 					}
 				?>
 					</select>
