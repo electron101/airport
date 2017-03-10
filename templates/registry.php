@@ -31,7 +31,7 @@ require 'templates/header.php';
 				<p>Этот логин уже занят</p>
 			</div>
 			<div class="hidden" id="success-alert-btn">
-				<a class="btn btn-sm btn-info" href="?act=user_add" role="button">
+				<a class="btn btn-sm btn-info" href="?act=registry" role="button">
 					<span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Назад</a>
 			</div>
 				
@@ -74,9 +74,19 @@ require 'templates/header.php';
 				  <span class="glyphicon form-control-feedback"></span>
 				</div>
 
+				<!-- Два скрытых поля, так как на форме регистрации нет 
+					выбора роли пользователя, и нет галочки вкоючения ползователя.
+					А скрипт обрабатывающий и добавляющий пользователя используется 
+					один и тот же как на панели администратора так и при регистрации, 
+					нужно передвать значения по умолчанию что бы скрипт обрабатывал 
+					верно. Привелегия = 2 - обычный пользователь. 
+					Статус = 1 -пользователь влкючён -->
+				<input type="hidden" name="priv" value="2">
+				<input type="hidden" name="status" value="1">
+
 				<div class="form-group">
-				  <button id="btn_add" class="btn btn-lg btn-success" type="submit">
-				  	<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Добавить</button>
+					  <button id="btn_add" class="btn btn-md btn-success" type="submit">
+				  	<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Добавить пользователя</button>
 				</div>
 
 			</form>

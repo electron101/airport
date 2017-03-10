@@ -1,7 +1,7 @@
 <?php
 
 /* Параметры для базы данных */
-$mysqli = new mysqli("localhost", "root", "123", "airport"); 
+$mysqli = new mysqli("localhost", "root", "1991", "airport"); 
 
 /* Кодировка по умолчанию */
 if (!$mysqli->set_charset("utf8"))
