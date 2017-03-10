@@ -1,7 +1,7 @@
 <?php require 'templates/header.php' ?>
 <style>
 	body {
-	  padding-top: 95px;
+	  padding-top: 75px;
 	}    
 
 	.left_krai {
@@ -117,7 +117,7 @@
 					// виджет "Bootstrap datetimepicker"
 						$('#datetimepicker_start').datetimepicker({
 							minView : 2,
-							// defaultDate: new Date(),
+							defaultDate: new Date(),
 							// defaultDate: "11/1/2013",
 							autoclose: true,
 							format: 'dd-mm-yyyy'

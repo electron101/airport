@@ -15,6 +15,9 @@
 
 	<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
 	<link href="css/signin.css" rel="stylesheet">
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/AdminLTE.css">
+    <link rel="stylesheet" href="css/skin-blue.css">
 
 	<style>
 	body {
@@ -54,6 +57,7 @@
 
 	<script src="jquery/jquery-3.1.1.min.js"></script>
 	<script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/app.js"></script>
 
   </head>
 
@@ -102,6 +106,8 @@
 
 		<div class="form-group">
 			<a href="index.php?act=recover_login">Восстановить пароль</a>
+			<br>
+			<a href="index.php?act=registry">Зарегистрироваться</a>
 		</div>			
 
 		<button id="btn_login" class="btn btn-lg btn-primary btn-block" 

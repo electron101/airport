@@ -113,11 +113,17 @@
 			
 			<div class="collapse navbar-collapse ">
 				<ul class="nav navbar-nav navbar-right ">            
+
+				<?php
+				/**Если переменная сессии определена, то выводим 
+				 * информацию о пользователе и кнопку выхода
+				 */
+				if (isset($_SESSION['login'])):?>
 					<li>
 						<a href="?act=lk" >
 							<span class="glyphicon glyphicon-user  aria-hidden="true">
 							</span>
-							<?php echo " ".$_SESSION['login']. " (".$role.")" ?>
+							<?php echo " ".$_SESSION['login'] ?>
 						</a>
 					</li>
 					<li>
@@ -126,6 +132,27 @@
 							</span> Выйти
 						</a>
 					</li>
+				<?php endif;?>
+
+				<?php
+				/**Если переменная сессии не определена, то выводим
+				 * сылку для регистрации и сылку для входа
+				 */
+				if (!isset($_SESSION['login'])):?>
+					<li>
+						<a href="?act=registry" >
+							<span class="fa fa-address-card-o aria-hidden="true">
+							</span> Регистрация
+						</a>
+					</li>
+					<li>
+						<a href="?act=login" >
+							<span class="glyphicon glyphicon-log-in" aria-hidden="true">
+							</span> Войти
+						</a>
+					</li>
+				<?php endif;?>
+				
 				</ul>
 			</div><!--/.nav-collapse -->
      

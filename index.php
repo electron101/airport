@@ -27,6 +27,14 @@ switch ($act)
 		require 'templates/main.php';
 		break;
 	
+	case 'logout':		
+		unset($_SESSION['id_user']);
+		unset($_SESSION['login']);
+		unset($_SESSION['priv']);
+		session_destroy();
+		header('Location: .');
+		break;
+	
 	default:
 		break;
 }

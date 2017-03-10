@@ -51,7 +51,7 @@ $(function()
 				// если сервер всё выполнил удачно то
 				if(msg == "success")
 				{
-					window.location.href = "index.php?act=lk";
+					window.location.href = "index.php?act=main";
 				}
 				if(msg == "invalid")
 				{
