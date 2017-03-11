@@ -27,6 +27,10 @@ switch ($act)
 		require 'templates/main.php';
 		break;
 	
+	case 'admin':
+		require 'templates/admin.php';
+		break;
+	
 	case 'logout':		
 		unset($_SESSION['id_user']);
 		unset($_SESSION['login']);
@@ -36,6 +40,7 @@ switch ($act)
 		break;
 	
 	default:
+		require 'templates/main.php';
 		break;
 }
 ?>

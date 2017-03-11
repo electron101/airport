@@ -1,4 +1,13 @@
-<?php require 'templates/header.php' ?>
+<?php 
+include 'function/whoami.php';
+if (IS_ADMIN)
+{
+	header('Location: ?act=admin');
+	exit(0);
+}
+require 'templates/header.php';
+?>
+
 <style>
 	body {
 	  padding-top: 75px;
@@ -15,7 +24,6 @@
 	textarea {
     resize: none; /* Запрещаем изменять размер */
    } 
-
 </style>
 
 <div class="col-sm-12 col-sm-offset-0 left_krai">
