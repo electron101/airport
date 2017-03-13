@@ -135,7 +135,8 @@
 				<?php endif;?>
 
 				<?php
-				/**Если переменная сессии не определена, то выводим
+				/**
+				 * Если переменная сессии не определена, то выводим
 				 * сылку для регистрации и сылку для входа
 				 */
 				if (!isset($_SESSION['login'])):?>
@@ -164,17 +165,6 @@
 
         <div class="sidebar">
 
-            <!-- search form 
-            <form action="/list" method="get" class="sidebar-form">
-                <div class="input-group">
-                    <input data-original-title="Введите # или тему заявки, или текст заявки, или текст комментария" name="t" class="form-control" placeholder="Поиск" data-toggle="tooltip" data-placement="bottom" title="" type="text">
-                    <span class="input-group-btn">
-                        <button type="submit" name="find" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
-                    </span>
-                </div>
-            </form>
-                    
-            <br>       
             <ul class="sidebar-menu">
                 <li class="active">
                     <a href="?act=lk">
@@ -209,20 +199,11 @@
                 <li>
                     <a href="/messages"><i class="fa fa-comments"></i> Сообщения <small id="label_msg"></small></a>
                 </li>  
-                -->                              
                 <li>
                     <a href="?act=client"><i class="fa fa-street-view "></i>  Клиенты</a>
                 </li>
-                <!--                                    
-                <li>
-                    <a href="/helper"><i class="fa fa-globe"></i> Центр знаний</a>
-                </li>            
-
-                <li>
-                    <a href="/notes"><i class="fa fa-book"></i> Блокнот</a>
-                </li>   
-                -->  
-                <li>
+				
+				<li>
                     <a href="?act=smena_pw"><i class="fa fa-refresh"></i>  Смена пароля</a>
                 </li>  
                 <li>
@@ -260,57 +241,6 @@
                 </li>
                 
                 
-                <!--
-                <li class="treeview ">
-                    <a href="#">
-                        <i class="fa fa-shield"></i>
-                        <span>Администрирование </span>
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li>
-                            <a href="/config"><i class="fa fa-cog"></i> Настройки системы</a>
-                        </li>
-
-                        <li>
-                            <a href="/portal"><i class="icon-svg" style=" padding-right: 6px;"></i> Главный портал</a>
-                        </li>
-
-                        <li>
-                            <a href="?act=user"><i class="fa fa-users"></i> Пользователи системы</a>
-                        </li>
-
-                        <li>
-                            <a href="/deps"><i class="fa fa-sitemap"></i> Группы пользователей</a>
-                        </li>
-
-                        <li>
-                            <a href="/units"><i class="fa fa-building-o"></i> Группы клиентов</a>
-                        </li>
-
-                        <li>
-                            <a href="/mailers"><i class="fa fa-paper-plane-o"></i> Рассылка писем</a>
-                        </li>
-                                            
-                        <li>
-                            <a href="/files"><i class="fa fa-files-o"></i>  Файлы заявок</a>
-                        </li>
-                        
-                        <li>
-                            <a href="/scheduler"><i class="fa fa-clock-o"></i>  Планировщик</a>
-                        </li>                    
-                                            
-                        <li>
-                            <a href="/approve"><i class="fa fa-check-square-o"></i> Подтверждения</a>
-                        </li>                            
-                                
-                        <li>
-                            <a href="/posada"><i class="fa fa-male"></i> Должности</a>
-                        </li>   
-                            
-                    </ul>                            
-                </li>
-                -->
                        
             </ul>
 
