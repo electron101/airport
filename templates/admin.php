@@ -1,17 +1,18 @@
 <?php 
 require 'templates/header_admin.php';
-// include 'function/whoami.php';
-// if (!IS_ADMIN)
-// 	header('Location: ?act=main');
+include 'function/whoami.php';
+if (!IS_ADMIN)
+	header('Location: ?act=main');
 ?>
 
 <style>
-	body {
-	  padding-top: 75px;
+	body 
+	{
+		padding-top: 50px;
 	}    
 
 	.left_krai {
-		padding-left: 0px;
+		padding-left: -50px;
 	}
 	
 	.interval {
@@ -23,12 +24,12 @@ require 'templates/header_admin.php';
    } 
 </style>
 
-<div class="col-sm-12 col-sm-offset-0 left_krai">
+<div class="col-sm-5 col-sm-offset-0 left_krai">
 <!-- Контейнер, содержащий форму обратной связи -->
 	<div class="panel panel-info">
 		<!-- Заголовок контейнера -->
 		<div class="panel-heading panel-title">
-			<h1 class="panel-title">Укажите маршрут, чтобы найти выгодные авиабилеты </h1>
+			<h1 class="panel-title">Новая заявка</h1>
 		</div>
 		<!-- Содержимое контейнера -->
 		<div class="panel-body">
@@ -47,22 +48,85 @@ require 'templates/header_admin.php';
 					<span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Назад</a>
 			</div>
 			
-		<div class="row">		
-			<div class="col-md-3">
-					<label for="inputText">От куда</label>
-			</div>
-			<div class="col-md-3">
-					<label for="inputText">Куда</label>
-			</div>
-			<div class="col-md-3">
-					<label for="inputText">Дата</label>
-			</div>
-		</div>
-			
+			<form role="form" id="TicketAddForm">        
+
+				<!-- #формирование ниспадающего списка -->
+				<div class="form-group has-feedback">
+					<label for="inputText">От кого</label>
+					<select id="client" name = "client" class="form-control selectpicker show-tick" data-live-search="true" onChange="info_client(this.value)" required>
+						<option value="" disabled selected>Клиент</option>
+				<?php
+					#подготовка запроса
+					$result = $mysqli->query("SELECT id, fio FROM clients");
+					if ($result)
+				  	{
+						#заполнение списка содержимым
+						while ($row = $result->fetch_array())
+							print "<OPTION value=".$row['id'].">".$row['fio']."</OPTION>\n";
+					}
+				?>
+					</select>
+					<div class="interval" align="right"><small><a href="?act=client_add">Добавить клиента</a></small></div>
+				</div>
+				
+				<!-- #формирование ниспадающего списка -->
+				<div class="form-group has-feedback">
+					<label for="inputText">Кому</label>
+					<select id="user" name = "user" class="form-control selectpicker show-tick" required>
+						<option value="" disabled selected>Исполнитель</option>
+				<?php
+					#подготовка запроса
+					$result = $mysqli->query("SELECT id, fio, login FROM users WHERE priv = 2");
+					if ($result)
+				  	{
+						#заполнение списка содержимым
+						while ($row = $result->fetch_array())
+							print "<OPTION value=".$row['id'].">".$row['fio'].' ('.$row['login'].')'."</OPTION>\n";
+					}
+				?>
+					</select>
+				</div>
+
+				<div class="form-group">
+				  <label>Приоритет</label><br>
+
+				  <label class="radio-inline">
+					<input type="radio" name="prioritet" value="2">Низкий
+				  </label>
+
+				  <label class="radio-inline">
+					<input type="radio" name="prioritet" value="1" checked>Средний
+				  </label>
+
+				  <label class="radio-inline">
+					<input type="radio" name="prioritet" value="0">Высокий
+				  </label> 
+
+				</div>
+
+				<div class="form-group has-feedback">
+				  <label>Тема</label>
+				  <input type="text" name="theme" class="form-control" placeholder="Тема" required>
+				  <span class="glyphicon form-control-feedback"></span>
+				</div> 
+				
+				<div class="form-group has-feedback">
+				  <label>Сообщение</label>
+				  <textarea name="msg" rows="5" class="form-control" placeholder="Суть заявки" required></textarea>
+				  <span class="glyphicon form-control-feedback"></span>
+				</div>
+
+				<div class="form-group">
+				  <button id="btn_add" class="btn btn-lg btn-success" type="submit">
+				  	<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Добавить</button>
+				</div>
+
+			</form>
+
 		</div>
 	</div>
 </div>
 
-<script src="js/search_ticket.js"></script>
+<script src="js/ticket_add.js"></script>
 
 <?php require 'templates/footer.php' ?>

@@ -25,7 +25,7 @@
 	body 
 	{
           padding-top: 50px;
-          margin-left: -10px;
+          margin-left: 0px;
 	}
 
         .vniz{
@@ -38,7 +38,7 @@
             /*display: block;*/
             top: 0;
             left: 0;
-            padding-top: 50px;
+            padding-top: 10px;
             padding-left: 0px;
             min-height: 100%;
             width: 230px;
@@ -115,7 +115,8 @@
 				<ul class="nav navbar-nav navbar-right ">            
 
 				<?php
-				/**Если переменная сессии определена, то выводим 
+				/**
+				 * Если переменная сессии определена, то выводим 
 				 * информацию о пользователе и кнопку выхода
 				 */
 				if (isset($_SESSION['login'])):?>
@@ -160,7 +161,7 @@
 	 </div>
     </div>
 															
-    <div class="content-wrapper">
+    <!-- <div class="content&#45;wrapper"> -->
 
 
         <div class="sidebar">
@@ -193,17 +194,9 @@
                     <a href="?act=news"><i class="fa fa-bullhorn"></i> Новости</a>
                 </li>
                 <li>
-                    <a href="/calendar"><i class="fa fa-calendar"></i> Календарь</a>
-                </li>   
-
-                <li>
-                    <a href="/messages"><i class="fa fa-comments"></i> Сообщения <small id="label_msg"></small></a>
-                </li>  
-                <li>
                     <a href="?act=client"><i class="fa fa-street-view "></i>  Клиенты</a>
                 </li>
-				
-				<li>
+                <li>
                     <a href="?act=smena_pw"><i class="fa fa-refresh"></i>  Смена пароля</a>
                 </li>  
                 <li>
@@ -223,30 +216,15 @@
                     </ul>
                 </li> 
                 
-                <li class="treeview ">
-                    <a href="#">
-                        <i class="fa fa-bar-chart-o"></i><span> Отчёты</span><i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li>
-                            <a href='?act=report_otdel'><i class="fa fa-line-chart"></i> Общая статистика</a>
-                        </li>
-                        <li>
-                            <a href=""><i class="fa fa-pie-chart"></i> Отчёт пользователя</a>
-                        </li>
-                        <li>
-                            <a href=""><i class="fa fa-bolt"></i> SLA-отчёты</a>
-                        </li>
-                    </ul>
-                </li>
-                
-                
+				<li>
+					<a href='?act=report_otdel'><i class="fa fa-line-chart"></i> Общая статистика</a>
+				</li>
                        
             </ul>
 
         </div> <!-- sidebar-->
-<!-- <div class="container"> -->
+		
+    <!-- <div class="content&#45;wrapper"> -->
+	<div class="row">
 
-      <div class="row">
-
-        <div class="main">
+		<div class="main">

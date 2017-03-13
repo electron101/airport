@@ -1,7 +1,6 @@
-	</div>
-	</div>
-	</div>
-	<!-- /.container -->
+			</div>         
+        </div>    
+    </div><!-- /.container -->
 
   </body>
 </html>
