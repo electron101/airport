@@ -13,23 +13,25 @@
 
     <!-- Bootstrap core CSS -->
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-    <!-- <link href="css/dashboard.css" rel="stylesheet"> -->
+    <link href="css/dashboard.css" rel="stylesheet">
     <link href="css/bootstrap-select.css" rel="stylesheet">
     <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/AdminLTE.css">
     <link rel="stylesheet" href="css/skin-blue.css">
     <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
 
-    <style>
-	
-	body 
-	{
-          padding-top: 50px;
-          margin-left: 0px;
-	}
+<style>
+        body {
+          padding-top: 20px;
+          margin-left: -10px;
+        }
 
         .vniz{
             padding-top: 10px;
+        }
+		
+		.nav_admin_left_margin {
+            margin-left: -10px;
         }
 
         .sidebar
@@ -38,7 +40,7 @@
             /*display: block;*/
             top: 0;
             left: 0;
-            padding-top: 10px;
+            padding-top: 50px;
             padding-left: 0px;
             min-height: 100%;
             width: 230px;
@@ -83,7 +85,6 @@
 
     </style>
 
-
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 
@@ -107,11 +108,19 @@
 
     <div class="navbar bg-blue navbar-fixed-top" role="navigation">
       <div class="container-fluid">
-        <div class="navbar-header">
-            <a href="index.php" class="logo">Авиабилеты </a>
-        </div>
+        <!-- <div class="navbar&#45;header"> -->
+        <!-- </div> -->
 			
-			<div class="collapse navbar-collapse ">
+			<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav navbar-left nav_admin_left_margin">            
+					<li>
+						<a href="?act=admin" class="pull-left" >
+							<span class="glyphicon glyphicon-log-out" aria-hidden="true">
+							</span> Авиабилеты (Панель администратора)
+						</a>
+					</li>
+				</ul>
+				
 				<ul class="nav navbar-nav navbar-right ">            
 
 				<?php
@@ -161,7 +170,8 @@
 	 </div>
     </div>
 															
-    <!-- <div class="content&#45;wrapper"> -->
+    <div class="content-wrapper">
+    <!-- <div class="row"> -->
 
 
         <div class="sidebar">
@@ -174,7 +184,7 @@
                     </a>
                 </li>                
                 <li>
-                    <a href="?act=ticket_add"><i class="fa fa-tag"></i> Создать заявку</a>
+                    <a href="?act=gorod"><i class="fa fa-circle-o"></i> Города</a>
                 </li>                   
                 <?php
                     $result = $mysqli->query("SELECT COUNT(*) as count FROM tickets WHERE user_to_id = '".$_SESSION["id_user"]."' AND status = 2");
@@ -223,7 +233,7 @@
             </ul>
 
         </div> <!-- sidebar-->
-		
+
     <!-- <div class="content&#45;wrapper"> -->
 	<div class="row">
 

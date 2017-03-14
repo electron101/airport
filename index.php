@@ -31,6 +31,18 @@ switch ($act)
 		require 'templates/admin.php';
 		break;
 	
+	case 'gorod':
+		require 'templates/gorod.php';
+		break;
+	
+	case 'gorod_add':
+		require 'templates/gorod_add.php';
+		break;
+	
+	case 'gorod_edit':
+		require 'templates/gorod_edit.php';
+		break;
+	
 	case 'logout':		
 		unset($_SESSION['id_user']);
 		unset($_SESSION['login']);
