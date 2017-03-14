@@ -27,14 +27,18 @@ body {
 		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Новый самолёт</a>  
 
 <?php
-	$result = $mysqli->query("SELECT * FROM gorod");
+	$result = $mysqli->query("SELECT * FROM samolet");
 	if ($result):?>
             <div class="table-responsive">
                 <table class="table table-bordered table-hover " style=" font-size: 14px;" >
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Город</th>
+                            <th>Бортовой номер</th>
+                            <th>Модель</th>
+                            <th>Компания</th>
+                            <th>Дата выпуска</th>
+                            <th>Количество мест</th>
                             <th class="text-right">Действие</th>
                         </tr>
                     </thead>
@@ -45,7 +49,19 @@ body {
                             <td style=" vertical-align: middle; "><small class=""><?=$row["id"]?></small>
                             </td>
 
-                            <td style=" vertical-align: middle; "><small class=""><?=$row["name"]?></small>
+                            <td style=" vertical-align: middle; "><small class=""><?=$row["bort_num"]?></small>
+                            </td>
+
+                            <td style=" vertical-align: middle; "><small class=""><?=$row["model"]?></small>
+                            </td>
+
+                            <td style=" vertical-align: middle; "><small class=""><?=$row["company"]?></small>
+                            </td>
+
+                            <td style=" vertical-align: middle; "><small class=""><?=$row["date_vipusk"]?></small>
+                            </td>
+
+                            <td style=" vertical-align: middle; "><small class=""><?=$row["colvo_mest"]?></small>
                             </td>
 
                             <td class="text-right">
