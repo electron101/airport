@@ -186,7 +186,11 @@
                 <li>
                     <a href="?act=gorod"><i class="fa fa-circle-o"></i> Города</a>
                 </li>                   
-                <?php
+                <li>
+                    <a href="?act=samolet"><i class="fa fa-plane"></i> Самолёты</a>
+                </li>                   
+
+				<?php
                     $result = $mysqli->query("SELECT COUNT(*) as count FROM tickets WHERE user_to_id = '".$_SESSION["id_user"]."' AND status = 2");
                     if ($result)
                         $row_vhod = $result->fetch_array();

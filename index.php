@@ -43,6 +43,18 @@ switch ($act)
 		require 'templates/gorod_edit.php';
 		break;
 	
+	case 'samolet':
+		require 'templates/samolet.php';
+		break;
+	
+	case 'samolet_add':
+		require 'templates/samolet_add.php';
+		break;
+
+	case 'samolet_edit':
+		require 'templates/samolet_edit.php';
+		break;
+	
 	case 'logout':		
 		unset($_SESSION['id_user']);
 		unset($_SESSION['login']);
