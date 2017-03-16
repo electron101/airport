@@ -114,4 +114,4 @@ function edit(id)
     window.location.href = 'index.php?act=samolet_edit&id=' + id;
 }
 </script>
-<?php require 'template/footer.php'; ?>
+<?php require 'templates/footer.php'; ?>

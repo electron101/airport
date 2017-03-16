@@ -3,13 +3,15 @@ include 'function/whoami.php';
 if (!IS_ADMIN)
 	header('Location: ?act=main');
 require 'templates/header_admin.php'; 
-include('../connect_bd.php');
-?>
 
+if (!isset($_GET["id"]))
+	header('Location: ?act=samolet');
+$id = $_GET["id"];
+?>
 <style>
 	body {
 	  padding-top: 45px;
-	}    
+	}     
 
 	.left_krai {
 		padding-left: 0px;
@@ -21,57 +23,65 @@ include('../connect_bd.php');
 	<div class="panel panel-info">
 		<!-- Заголовок контейнера -->
 		<div class="panel-heading panel-title">
-			<h1 class="panel-title">Новый самолёл</h1>
+			<h1 class="panel-title">Редактировать самолёт</h1>
 		</div>
 		<!-- Содержимое контейнера -->
 		<div class="panel-body">
 						
 			<div class="alert alert-success hidden" id="success-alert">
-				<strong>Успешно!</strong> Запись добавлена
+				<strong>Успешно!</strong> Запись обновлена
 			</div>
 			<div class="alert alert-danger hidden" id="danger-alert">
 				<strong>Неудача!</strong> Что то пошло не так
 			</div>
 			<div class="hidden" id="success-alert-btn">
-				<a class="btn btn-sm btn-info" href="?act=samolet_add" role="button">
+				<a class="btn btn-sm btn-info" href="?act=samolet" role="button">
 					<span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Назад</a>
 			</div>
 			
-			<form role="form" id="SamoletAddForm">        
+	<?php
+		$result = $mysqli->query("SELECT * FROM samolet WHERE id = '$id'");
+		if ($result)   
+			$row = $result->fetch_array()
+	?>
+
+			<form role="form" id="SamoletEditForm">        
 
 				<div class="form-group has-feedback">
 				  <label for="inputText">Бортовой номер</label>
-				  <input type="text" id="bort_num" name="bort_num" class="form-control" placeholder="Бортовой номер" required autofocus>
+				  <input type="text" id="bort_num" name="bort_num" value="<?=$row["bort_num"]?>" class="form-control" placeholder="Бортовой номер" required autofocus>
 				  <span class="glyphicon form-control-feedback"></span>
 				</div>
 				
 				<div class="form-group has-feedback">
 				  <label for="inputText">Модель</label>
-				  <input type="text" id="model" name="model" class="form-control" placeholder="Модель" required >
+				  <input type="text" id="model" name="model" value="<?=$row["model"]?>" class="form-control" placeholder="Модель" required >
 				  <span class="glyphicon form-control-feedback"></span>
 				</div>
 
 				<div class="form-group has-feedback">
 				  <label for="inputText">Компания</label>
-				  <input type="text" id="company" name="company" class="form-control" placeholder="Компания" required >
+				  <input type="text" id="company" name="company" value="<?=$row["company"]?>" class="form-control" placeholder="Компания" required >
 				  <span class="glyphicon form-control-feedback"></span>
 				</div>
 
 				<div class="form-group has-feedback">
 				  <label for="inputText">Дата выпуска</label>
-				  <input type="text" id="date_vipusk" name="date_vipusk" class="form-control" placeholder="Дата выпуска" required >
+				  <input type="text" id="date_vipusk" name="date_vipusk" value="<?=$row["date_vipusk"]?>" class="form-control" placeholder="Дата выпуска" required >
 				  <span class="glyphicon form-control-feedback"></span>
 				</div>
 
 				<div class="form-group has-feedback">
 				  <label for="inputText">Количество мест</label>
-				  <input type="text" id="colvo_mest" name="colvo_mest" class="form-control" placeholder="Количество мест" required >
+				  <input type="text" id="colvo_mest" name="colvo_mest" value="<?=$row["colvo_mest"]?>" class="form-control" placeholder="Количество мест" required >
 				  <span class="glyphicon form-control-feedback"></span>
 				</div>
 
 				<div class="form-group">
-				  <button id="btn_add" class="btn btn-md btn-success" type="submit">
-				  	<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Добавить</button>
+				  <button id="btn_edit" class="btn btn-md btn-success" type="submit">
+				  	<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Обновить
+				  </button>
+				  <input type="hidden" name="id" value=<?=$id?>>
 				</div>
 
 			</form>
@@ -80,6 +90,6 @@ include('../connect_bd.php');
 	</div>
 </div>
   
-<script src="js/samolet_add.js"></script>
+<script src="js/samolet_edit.js"></script>
 
 <?php require 'templates/footer.php' ?>
