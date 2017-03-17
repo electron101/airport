@@ -189,6 +189,9 @@
                 <li>
                     <a href="?act=samolet"><i class="fa fa-plane"></i> Самолёты</a>
                 </li>                   
+                <li>
+                    <a href="?act=reis"><i class="fa fa-list"></i> Рейсы</a>
+                </li>                   
 
 				<?php
                     $result = $mysqli->query("SELECT COUNT(*) as count FROM tickets WHERE user_to_id = '".$_SESSION["id_user"]."' AND status = 2");

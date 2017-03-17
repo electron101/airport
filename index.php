@@ -55,6 +55,18 @@ switch ($act)
 		require 'templates/samolet_edit.php';
 		break;
 	
+	case 'reis':
+		require 'templates/reis.php';
+		break;
+	
+	case 'reis_add':
+		require 'templates/reis_add.php';
+		break;
+
+	case 'reis_edit':
+		require 'templates/reis_edit.php';
+		break;
+
 	case 'logout':		
 		unset($_SESSION['id_user']);
 		unset($_SESSION['login']);
