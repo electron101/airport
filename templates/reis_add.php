@@ -84,7 +84,7 @@ include('../connect_bd.php');
 					<span class="input-group-addon">
 					  <i class="fa fa-calendar"></i>
 					</span>
-					<input type="text"  name="date_vilet" class="form-control input-md" required>
+					<input type="text" id="date_vilet" name="date_vilet" class="form-control input-md" required>
 					</input>
 					<span class="glyphicon form-control-feedback"></span>
 				  </div>
@@ -101,7 +101,8 @@ include('../connect_bd.php');
 							minuteStep: 1,
 							todayBtn : true,
 							autoclose: true,
-							format: 'dd-mm-yyyy hh:ii'
+							// format: 'dd-mm-yyyy hh:ii:00'
+							format: 'yyyy-mm-dd hh:mm:ss'
 						});
 					});
 				</script>
@@ -114,7 +115,7 @@ include('../connect_bd.php');
 					<span class="input-group-addon">
 					  <i class="fa fa-calendar"></i>
 					</span>
-					<input type="text"  name="date_posadka" class="form-control input-md" required>
+					<input type="text" id="date_posadka" name="date_posadka" class="form-control input-md" required>
 					</input>
 					<span class="glyphicon form-control-feedback"></span>
 				  </div>
@@ -131,7 +132,8 @@ include('../connect_bd.php');
 							minuteStep: 1,
 							todayBtn : true,
 							autoclose: true,
-							format: 'dd-mm-yyyy hh:ii'
+							// format: 'dd-mm-yyyy hh:ii:00'
+							format: 'yyyy-mm-dd hh:mm:ss'
 						});
 					});
 				</script>

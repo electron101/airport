@@ -31,13 +31,58 @@ $(function()
 		//если элемент не прошёл проверку, то отметить форму как не валидную 
 		formValid = false;  
 	  }	  
+	  
+	  var gorod_vilet   = $("#gorod_vilet").val();
+	  var gorod_posadka = $("#gorod_posadka").val();
+	  var bort_num      = $("#bort_num").val();
+
+		if (gorod_vilet == null) 
+		{		
+			// получаем элемент, содержащий пароль
+			inputclient = $("#gorod_vilet");
+			//найти предка, имеющего класс .form-group (для установления success/error)
+			formGroupclient = inputclient.parents('.form-group');
+			//добавить к formGroup класс .has-error и удалить .has-success
+			formGroupclient.addClass('has-error').removeClass('has-success');
+			
+			formValid = false;
+		}  
+		
+		if (gorod_posadka == null) 
+		{		
+			// получаем элемент, содержащий пароль
+			inputclient = $("#gorod_posadka");
+			//найти предка, имеющего класс .form-group (для установления success/error)
+			formGroupclient = inputclient.parents('.form-group');
+			//добавить к formGroup класс .has-error и удалить .has-success
+			formGroupclient.addClass('has-error').removeClass('has-success');
+			
+			formValid = false;
+		}  
+
+		if (bort_num == null) 
+		{		
+			// получаем элемент, содержащий пароль
+			inputuser = $("#bort_num");
+			//найти предка, имеющего класс .form-group (для установления success/error)
+			formGroupuser = inputuser.parents('.form-group');
+			//добавить к formGroup класс .has-error и удалить .has-success
+			formGroupuser.addClass('has-error').removeClass('has-success');
+			
+			formValid = false;
+		}
 	});
 
 	//если форма валидна, то
 	if (formValid) 
 	{	
+		var date_posadka2 = $('#date_posadka').val();
+		// var date_vilet2 = $('#date_vilet').val(moment(new Date($('#date_vilet').val())).format("YYYY-MM-DD HH:mm:ss"));
+		var date_vilet2 = $('#date_vilet').val();
+
 		var str = $('#ReisAddForm').serialize();
 
+		str += "&date_posadka2=" + date_posadka2 + "&date_vilet2=" + date_vilet2;
 		$.ajax(
 		{
 			url: "scripts/reis_add.php",
