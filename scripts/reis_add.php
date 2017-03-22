@@ -20,25 +20,22 @@ if (!empty($_POST))
 		$gorod_posadka = htmlspecialchars($gorod_posadka);
 		$gorod_posadka = $mysqli->real_escape_string($gorod_posadka);
 		
-		// $date_vilet = strip_tags($_POST['date_vilet']);
-		// $date_vilet = htmlspecialchars_decode($date_vilet);
-		// $date_vilet = '2009-04-30 10:09:00'; 
-		// $date_vilet = htmlspecialchars($date_vilet);
-		// $date_vilet = $mysqli->real_escape_string($date_vilet);
-		
-		// $date_posadka = strip_tags($_POST['date_posadka']);
-		// $date_posadka = $_POST['date_posadka'];
-		// $date_posadka = htmlspecialchars_decode($date_posadka);
-		// $date_posadka = '2009-04-30 10:09:00';
-		// $date_posadka = htmlspecialchars($date_posadka);
-		// $date_posadka = $mysqli->real_escape_string($date_posadka);
-		
+		/** 
+		 * поле в таблице id_samolet но переменная называется bort_num	
+		 */
 		$bort_num = strip_tags($_POST['bort_num']);
 		$bort_num = htmlspecialchars($bort_num);
 		$bort_num = $mysqli->real_escape_string($bort_num);
 
-		$colvo_mest = 11;
-
+		/**
+		 * Количество мест в рейсе. Берём из таблицы самолёт
+		 */
+		$result = $mysqli->query("SELECT colvo_mest FROM samolet WHERE id = '$bort_num'");
+		if ($result) 
+		{
+			$row = $result->fetch_array();
+			$colvo_mest = $row['colvo_mest'];
+		}
 
 		$date_vilet = $_POST['date_vilet2'];
 		// $date_vilet = strip_tags($_POST['date_vilet2']);
