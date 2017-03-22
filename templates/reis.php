@@ -27,17 +27,23 @@ body {
 		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Новый рейс</a>  
 
 <?php
-	$result = $mysqli->query("SELECT * FROM samolet");
+	$result = $mysqli->query("SELECT reis.id_reis, reis.date_time_vilet, 
+							reis.date_time_posadka, g1.name AS gorod_vilet, 
+							g2.name AS gorod_posadka, samolet.bort_num, reis.colvo_mest 
+							FROM reis JOIN gorod AS g1 ON reis.id_gorod_vilet = g1.id 
+							JOIN gorod as g2 ON reis.id_gorod_posadka = g2.id 
+							JOIN samolet ON reis.id_samolet = samolet.id ");
 	if ($result):?>
             <div class="table-responsive">
                 <table class="table table-bordered table-hover " style=" font-size: 14px;" >
                     <thead>
                         <tr>
                             <th>#</th>
+                            <th>Дата вылета</th>
+                            <th>Дата посадки</th>
+                            <th>Откуда</th>
+                            <th>Куда</th>
                             <th>Бортовой номер</th>
-                            <th>Модель</th>
-                            <th>Компания</th>
-                            <th>Дата выпуска</th>
                             <th>Количество мест</th>
                             <th class="text-right">Действие</th>
                         </tr>
@@ -46,23 +52,25 @@ body {
                         <form role="form" id="Form">
 	<?php while ($row = $result->fetch_assoc()):?>
 	 					<tr>
-                            <td style=" vertical-align: middle; "><small class=""><?=$row["id"]?></small>
+                            <td style=" vertical-align: middle; "><small class=""><?=$row["id_reis"]?></small>
+                            </td>
+
+                            <td style=" vertical-align: middle; "><small class=""><?=$row["date_time_vilet"]?></small>
+                            </td>
+
+                            <td style=" vertical-align: middle; "><small class=""><?=$row["date_time_posadka"]?></small>
+                            </td>
+
+                            <td style=" vertical-align: middle; "><small class=""><?=$row["gorod_vilet"]?></small>
+                            </td>
+
+                            <td style=" vertical-align: middle; "><small class=""><?=$row["gorod_posadka"]?></small>
                             </td>
 
                             <td style=" vertical-align: middle; "><small class=""><?=$row["bort_num"]?></small>
                             </td>
-
-                            <td style=" vertical-align: middle; "><small class=""><?=$row["model"]?></small>
-                            </td>
-
-                            <td style=" vertical-align: middle; "><small class=""><?=$row["company"]?></small>
-                            </td>
-
-                            <td style=" vertical-align: middle; "><small class=""><?=$row["date_vipusk"]?></small>
-                            </td>
-
                             <td style=" vertical-align: middle; "><small class=""><?=$row["colvo_mest"]?></small>
-                            </td>
+							</td>
 
                             <td class="text-right">
                                 <div class="btn-group btn-group-xs ">
