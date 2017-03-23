@@ -3,13 +3,15 @@ include 'function/whoami.php';
 if (!IS_ADMIN)
 	header('Location: ?act=main');
 require 'templates/header_admin.php'; 
-include('../connect_bd.php');
-?>
 
+if (!isset($_GET["id_reis"]))
+	header('Location: ?act=reis');
+$id = $_GET["id_reis"];
+?>
 <style>
 	body {
 	  padding-top: 45px;
-	}    
+	}     
 
 	.left_krai {
 		padding-left: 0px;
@@ -21,37 +23,48 @@ include('../connect_bd.php');
 	<div class="panel panel-info">
 		<!-- Заголовок контейнера -->
 		<div class="panel-heading panel-title">
-			<h1 class="panel-title">Новый рейс</h1>
+			<h1 class="panel-title">Редактировать рейс</h1>
 		</div>
 		<!-- Содержимое контейнера -->
 		<div class="panel-body">
 						
 			<div class="alert alert-success hidden" id="success-alert">
-				<strong>Успешно!</strong> Запись добавлена
+				<strong>Успешно!</strong> Запись обновлена
 			</div>
 			<div class="alert alert-danger hidden" id="danger-alert">
 				<strong>Неудача!</strong> Что то пошло не так
 			</div>
 			<div class="hidden" id="success-alert-btn">
-				<a class="btn btn-sm btn-info" href="?act=reis_add" role="button">
+				<a class="btn btn-sm btn-info" href="?act=reis" role="button">
 					<span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Назад</a>
 			</div>
 			
-			<form role="form" id="ReisAddForm">        
+	<?php
+		$result = $mysqli->query("SELECT * FROM reis WHERE id_reis = '$id'");
+		if ($result)   
+			$row = $result->fetch_array()
+	?>
+
+			<form role="form" id="ReisEditForm">        
 
 				<!-- #формирование ниспадающего списка -->
 				<div class="form-group has-feedback">
-					<label for="inputText">Город отправления</label>
+					<label for="inputText">Город отправлеия</label>
 					<select id="gorod_vilet" name = "gorod_vilet" class="form-control selectpicker show-tick" data-live-search="true" required>
-						<option value="" disabled selected>Город отправления</option>
+						<option value="" disabled>Город отправлеия</option>
 				<?php
 					#подготовка запроса
 					$result = $mysqli->query("SELECT id, name FROM gorod ");
 					if ($result)
 				  	{
 						#заполнение списка содержимым
-						while ($row = $result->fetch_array())
-							print "<OPTION value=".$row['id'].">".$row['name']."</OPTION>\n";
+						while ($row1 = $result->fetch_array())
+						{
+							if ($row1['id'] == $row['id_gorod_vilet'])
+								print "<OPTION value=".$row1['id']." selected>".$row1['name']."</OPTION>\n";
+							else
+								print "<OPTION value=".$row1['id'].">".$row1['name']."</OPTION>\n";
+						}
 					}
 				?>
 					</select>
@@ -62,15 +75,20 @@ include('../connect_bd.php');
 				<div class="form-group has-feedback">
 					<label for="inputText">Город прибытия</label>
 					<select id="gorod_posadka" name = "gorod_posadka" class="form-control selectpicker show-tick" data-live-search="true" required>
-						<option value="" disabled selected>Город прибытия</option>
+						<option value="" disabled>Город прибытия</option>
 				<?php
 					#подготовка запроса
 					$result = $mysqli->query("SELECT id, name FROM gorod ");
 					if ($result)
 				  	{
 						#заполнение списка содержимым
-						while ($row = $result->fetch_array())
-							print "<OPTION value=".$row['id'].">".$row['name']."</OPTION>\n";
+						while ($row1 = $result->fetch_array())
+						{
+							if ($row1['id'] == $row['id_gorod_posadka'])
+								print "<OPTION value=".$row1['id']." selected>".$row1['name']."</OPTION>\n";
+							else
+								print "<OPTION value=".$row1['id'].">".$row1['name']."</OPTION>\n";
+						}
 					}
 				?>
 					</select>
@@ -84,7 +102,7 @@ include('../connect_bd.php');
 					<span class="input-group-addon">
 					  <i class="fa fa-calendar"></i>
 					</span>
-					<input type="text" id="date_vilet" name="date_vilet" class="form-control input-md" required>
+					<input type="text" id="date_vilet" name="date_vilet" value="<?=$row["date_time_vilet"]?>" class="form-control input-md" required>
 					</input>
 					<span class="glyphicon form-control-feedback"></span>
 				  </div>
@@ -115,7 +133,7 @@ include('../connect_bd.php');
 					<span class="input-group-addon">
 					  <i class="fa fa-calendar"></i>
 					</span>
-					<input type="text" id="date_posadka" name="date_posadka" class="form-control input-md" required>
+					<input type="text" id="date_posadka" name="date_posadka" value="<?=$row["date_time_posadka"]?>" class="form-control input-md" required>
 					</input>
 					<span class="glyphicon form-control-feedback"></span>
 				  </div>
@@ -150,17 +168,23 @@ include('../connect_bd.php');
 					if ($result)
 				  	{
 						#заполнение списка содержимым
-						while ($row = $result->fetch_array())
-							print "<OPTION value=".$row['id'].">".$row['bort_num']."</OPTION>\n";
+						while ($row1 = $result->fetch_array())
+						{
+							if ($row1['id'] == $row['id_samolet'])
+								print "<OPTION value=".$row1['id']." selected>".$row1['bort_num']."</OPTION>\n";
+							else
+								print "<OPTION value=".$row1['id'].">".$row1['bort_num']."</OPTION>\n";
+						}
 					}
 				?>
 					</select>
 				</div>
 
-
 				<div class="form-group">
-				  <button id="btn_add" class="btn btn-md btn-success" type="submit">
-				  	<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Добавить</button>
+				  <button id="btn_edit" class="btn btn-md btn-success" type="submit">
+				  	<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Обновить
+				  </button>
+				  <input type="hidden" name="id" value=<?=$id?>>
 				</div>
 
 			</form>
@@ -169,6 +193,6 @@ include('../connect_bd.php');
 	</div>
 </div>
   
-<script src="js/reis_add.js"></script>
+<script src="js/reis.js"></script>
 
 <?php require 'templates/footer.php' ?>

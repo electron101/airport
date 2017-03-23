@@ -21,7 +21,7 @@ include('../connect_bd.php');
 	<div class="panel panel-info">
 		<!-- Заголовок контейнера -->
 		<div class="panel-heading panel-title">
-			<h1 class="panel-title">Новый самолёл</h1>
+			<h1 class="panel-title">Новый самолёт</h1>
 		</div>
 		<!-- Содержимое контейнера -->
 		<div class="panel-body">

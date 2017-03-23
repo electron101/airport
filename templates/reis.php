@@ -32,7 +32,7 @@ body {
 							g2.name AS gorod_posadka, samolet.bort_num, reis.colvo_mest 
 							FROM reis JOIN gorod AS g1 ON reis.id_gorod_vilet = g1.id 
 							JOIN gorod as g2 ON reis.id_gorod_posadka = g2.id 
-							JOIN samolet ON reis.id_samolet = samolet.id ");
+							JOIN samolet ON reis.id_samolet = samolet.id ORDER BY reis.id_reis DESC");
 	if ($result):?>
             <div class="table-responsive">
                 <table class="table table-bordered table-hover " style=" font-size: 14px;" >
@@ -75,9 +75,9 @@ body {
                             <td class="text-right">
                                 <div class="btn-group btn-group-xs ">
 
-                                    <button data-original-title="Редактировать" id="sort_list" value="main" type="button" class="btn btn-primary " data-toggle="tooltip" data-placement="bottom" title="" onclick="return edit('<?=$row["id"]?>')"><i class="fa fa-edit"></i> </button>
+                                    <button data-original-title="Редактировать" id="sort_list" value="main" type="button" class="btn btn-primary " data-toggle="tooltip" data-placement="bottom" title="" onclick="return edit('<?=$row["id_reis"]?>')"><i class="fa fa-edit"></i> </button>
 
-                                    <button data-original-title="Удалить" id="sort_list" value="free" type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="" onclick="return del('<?=$row["id"]?>')"><i class="fa fa-trash"></i> </button>
+                                    <button data-original-title="Удалить" id="sort_list" value="free" type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="" onclick="return del('<?=$row["id_reis"]?>')"><i class="fa fa-trash"></i> </button>
 
                                 </div>
                             </td>
@@ -119,7 +119,7 @@ function del(id)
 }
 function edit(id)
 {
-    window.location.href = 'index.php?act=reis_edit&id=' + id;
+    window.location.href = 'index.php?act=reis_edit&id_reis=' + id;
 }
 </script>
 <?php require 'templates/footer.php'; ?>
