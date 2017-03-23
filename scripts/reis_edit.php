@@ -1,6 +1,6 @@
 <?php
 /*
- *	[ ДОБАВЛЕНИЕ РЕЙСА ]
+ *	[ ОБНОВЛЕНИЕ РЕЙСА ]
  */
 include_once('../connect_bd.php');
 
@@ -11,6 +11,8 @@ if (!empty($_POST))
 								/****************************
 								 *	ПРОВЕРКА ВХОДНЫХ ДАННЫХ	*
 								 ****************************/
+		
+		$id = $_POST['id_reis'];
 
 		$gorod_vilet = strip_tags($_POST['gorod_vilet']);
 		$gorod_vilet = htmlspecialchars($gorod_vilet);
@@ -38,33 +40,30 @@ if (!empty($_POST))
 		}
 
 		$date_vilet = $_POST['date_vilet2'];
-		// $date_vilet = strip_tags($_POST['date_vilet2']);
-		// $date_vilet = htmlspecialchars($date_vilet);
-		// $date_vilet = $mysqli->real_escape_string($date_vilet);
-		
+	
 		$date_posadka = $_POST['date_posadka2'];
-		// $date_posadka = strip_tags($_POST['date_posadka2']);
-		// $date_posadka = htmlspecialchars($date_posadka);
-		// $date_posadka = $mysqli->real_escape_string($date_posadka);
-
+		
 
 								/****************************
 								 *	ПОДГОТОВКА ЗАПРОСА		*
 								 ****************************/
-
-		if (!($stmt = $mysqli->prepare("INSERT INTO reis (date_time_vilet, date_time_posadka, id_gorod_vilet, id_gorod_posadka, id_samolet, colvo_mest) VALUES (?, ?, ?, ?, ?, ?)")))
+		if (!($stmt = $mysqli->prepare("UPDATE reis SET date_time_vilet = ?, 
+														date_time_posadka = ?, 
+														id_gorod_vilet = ?, 
+														id_gorod_posadka = ?, 
+														id_samolet = ?,
+														colvo_mest = ? 
+												WHERE	id_reis = ?")))
 		{
 			echo "invalid";
 			exit();
 		}
 
-		/*******************************************************************************************/
-
 								/****************************
 								 *	ПРИВЯЗКА ДАННЫХ			*
 								 ****************************/
 
-		if (!$stmt->bind_param('ssiiii', $date_vilet, $date_posadka, $gorod_vilet, $gorod_posadka, $bort_num, $colvo_mest))
+		if (!$stmt->bind_param('ssiiiii', $date_vilet, $date_posadka, $gorod_vilet, $gorod_posadka, $bort_num, $colvo_mest, $id))
 		{
 			echo "invalid";
 			exit();

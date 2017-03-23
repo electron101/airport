@@ -184,7 +184,7 @@ $id = $_GET["id_reis"];
 				  <button id="btn_edit" class="btn btn-md btn-success" type="submit">
 				  	<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Обновить
 				  </button>
-				  <input type="hidden" name="id" value=<?=$id?>>
+				  <input type="hidden" name="id_reis" value=<?=$id?>>
 				</div>
 
 			</form>
@@ -193,6 +193,6 @@ $id = $_GET["id_reis"];
 	</div>
 </div>
   
-<script src="js/reis.js"></script>
+<script src="js/reis_edit.js"></script>
 
 <?php require 'templates/footer.php' ?>
