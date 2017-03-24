@@ -156,7 +156,6 @@ $id = $_GET["id_reis"];
 					});
 				</script>
 
-
 				<!-- #формирование ниспадающего списка -->
 				<div class="form-group has-feedback">
 					<label for="inputText">Бортовой номер самолёта</label>
