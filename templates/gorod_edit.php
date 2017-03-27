@@ -68,4 +68,4 @@ $id = $_GET["id"];
   
 <script src="js/gorod_edit.js"></script>
 
-<?php require 'template/footer.php' ?>
+<?php require 'templates/footer.php' ?>

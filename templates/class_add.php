@@ -21,7 +21,7 @@ include('../connect_bd.php');
 	<div class="panel panel-info">
 		<!-- Заголовок контейнера -->
 		<div class="panel-heading panel-title">
-			<h1 class="panel-title">Новый город</h1>
+			<h1 class="panel-title">Новый класс</h1>
 		</div>
 		<!-- Содержимое контейнера -->
 		<div class="panel-body">
@@ -33,18 +33,17 @@ include('../connect_bd.php');
 				<strong>Неудача!</strong> Что то пошло не так
 			</div>
 			<div class="hidden" id="success-alert-btn">
-				<a class="btn btn-sm btn-info" href="?act=gorod_add" role="button">
+				<a class="btn btn-sm btn-info" href="?act=class_add" role="button">
 					<span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Назад</a>
 			</div>
 			
-			<form role="form" id="GorodAddForm">        
+			<form role="form" id="ClassAddForm">        
 
 				<div class="form-group has-feedback">
-				  <label for="inputText">Город</label>
-				  <input type="text" id="gorod" name="gorod" class="form-control" placeholder="Город" required autofocus>
+				  <label for="inputText">Класс</label>
+				  <input type="text" id="class" name="class" class="form-control" placeholder="Класс" required autofocus>
 				  <span class="glyphicon form-control-feedback"></span>
 				</div>
-
 
 				<div class="form-group">
 				  <button id="btn_add" class="btn btn-md btn-success" type="submit">
@@ -57,6 +56,6 @@ include('../connect_bd.php');
 	</div>
 </div>
   
-<script src="js/gorod_add.js"></script>
+<script src="js/class_add.js"></script>
 
 <?php require 'templates/footer.php' ?>

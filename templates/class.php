@@ -21,20 +21,20 @@ body {
 	}
 </style>
     
-    <h1 class="page-header"><i class="fa fa-circle-o"></i> Города</h1>
+    <h1 class="page-header"><i class="fa fa-thumbs-up"></i> Классы</h1>
 
-	<a class="btn btn-md btn-primary btn_in_bottom" href="?act=gorod_add" role="button">
-		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Новый город</a>  
+	<a class="btn btn-md btn-primary btn_in_bottom" href="?act=class_add" role="button">
+		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Новый класс</a>  
 
 <?php
-	$result = $mysqli->query("SELECT * FROM gorod");
+	$result = $mysqli->query("SELECT * FROM class");
 	if ($result):?>
             <div class="table-responsive">
                 <table class="table table-bordered table-hover " style=" font-size: 14px;" >
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Город</th>
+                            <th>Класс</th>
                             <th class="text-right">Действие</th>
                         </tr>
                     </thead>
@@ -79,7 +79,7 @@ function del(id)
 
         $.ajax(
         {
-            url: "scripts/gorod_del.php",
+            url:  "scripts/class_del.php",
             type: "POST",
             data: str
         })
@@ -88,14 +88,14 @@ function del(id)
             // если сервер всё выполнил удачно то
             if(msg == "success")
             {
-                window.location.href = "index.php?act=gorod";
+                window.location.href = "index.php?act=class";
             }
         })
     }
 }
 function edit(id)
 {
-    window.location.href = 'index.php?act=gorod_edit&id=' + id;
+    window.location.href = 'index.php?act=class_edit&id=' + id;
 }
 </script>
 <?php require 'templates/footer.php'; ?>

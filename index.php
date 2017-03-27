@@ -66,6 +66,18 @@ switch ($act)
 	case 'reis_edit':
 		require 'templates/reis_edit.php';
 		break;
+	
+	case 'class':
+		require 'templates/class.php';
+		break;
+	
+	case 'class_add':
+		require 'templates/class_add.php';
+		break;
+
+	case 'class_edit':
+		require 'templates/class_edit.php';
+		break;
 
 	case 'logout':		
 		unset($_SESSION['id_user']);
