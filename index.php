@@ -79,6 +79,18 @@ switch ($act)
 		require 'templates/class_edit.php';
 		break;
 
+	case 'stoimost':
+		require 'templates/stoimost.php';
+		break;
+	
+	case 'stoimost_add':
+		require 'templates/stoimost_add.php';
+		break;
+
+	case 'stoimost_edit':
+		require 'templates/stoimost_edit.php';
+		break;
+
 	case 'logout':		
 		unset($_SESSION['id_user']);
 		unset($_SESSION['login']);

@@ -195,6 +195,9 @@
 				<li>
 					<a href="?act=class"><i class="fa fa-thumbs-up"></i> Классы</a>
                 </li>                   
+				<li>
+					<a href="?act=stoimost"><i class="fa fa-thumbs-up"></i> Стоимость билета</a>
+                </li>                   
 
 				<?php
                     $result = $mysqli->query("SELECT COUNT(*) as count FROM tickets WHERE user_to_id = '".$_SESSION["id_user"]."' AND status = 2");
