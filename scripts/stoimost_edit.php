@@ -1,6 +1,6 @@
 <?php
 /*
- *	[ ДОБАВЛЕНИЕ СТОИМОСТИ ]
+ *	[ ОБНОВЛЕНИЕ СТОИМОСТИ ]
  */
 include_once('../connect_bd.php');
 
@@ -11,7 +11,9 @@ if (!empty($_POST))
 								/****************************
 								 *	ПРОВЕРКА ВХОДНЫХ ДАННЫХ	*
 								 ****************************/
-						
+		
+		$id = $_POST['id'];
+
 		$reis     = strip_tags($_POST['reis']);
 		$reis     = htmlspecialchars($reis);
 		$reis     = $mysqli->real_escape_string($reis);
@@ -30,26 +32,23 @@ if (!empty($_POST))
 		 */
 		if (!preg_match('/^(?:0|[1-9]\d{0,5})(?:\.\d{1,3})?$/', $stoimost))
 			$stoimost = 100;
-
-
+		
 
 								/****************************
 								 *	ПОДГОТОВКА ЗАПРОСА		*
 								 ****************************/
-		
-		if (!($stmt = $mysqli->prepare("INSERT INTO stoimost (id_reis, id_class, sum) VALUES (?, ?, ?)")))
+
+		if (!($stmt = $mysqli->prepare("UPDATE stoimost SET id_reis = ?, id_class = ?, sum = ? WHERE id = ?")))
 		{
 			echo "invalid";
 			exit();
 		}
 
-		/*******************************************************************************************/
-
 								/****************************
 								 *	ПРИВЯЗКА ДАННЫХ			*
 								 ****************************/
 
-		if (!$stmt->bind_param('iid', $reis, $class, $stoimost))
+		if (!$stmt->bind_param('iidi', $reis, $class, $stoimost, $id))
 		{
 			echo "invalid";
 			exit();

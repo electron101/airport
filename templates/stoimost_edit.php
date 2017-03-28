@@ -5,7 +5,7 @@ if (!IS_ADMIN)
 require 'templates/header_admin.php'; 
 
 if (!isset($_GET["id"]))
-	header('Location: ?act=gorod');
+	header('Location: ?act=stoimost');
 $id = $_GET["id"];
 ?>
 <style>
@@ -23,7 +23,7 @@ $id = $_GET["id"];
 	<div class="panel panel-info">
 		<!-- Заголовок контейнера -->
 		<div class="panel-heading panel-title">
-			<h1 class="panel-title">Редактировать должность</h1>
+			<h1 class="panel-title">Редактировать стоимость</h1>
 		</div>
 		<!-- Содержимое контейнера -->
 		<div class="panel-body">
@@ -35,49 +35,60 @@ $id = $_GET["id"];
 				<strong>Неудача!</strong> Что то пошло не так
 			</div>
 			<div class="hidden" id="success-alert-btn">
-				<a class="btn btn-sm btn-info" href="?act=gorod" role="button">
+				<a class="btn btn-sm btn-info" href="?act=stoimost" role="button">
 					<span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Назад</a>
 			</div>
 			
 	<?php
-		$result = $mysqli->query("SELECT * FROM gorod WHERE id = '$id'");
+		$result = $mysqli->query("SELECT * FROM stoimost WHERE id = '$id'");
 		if ($result)   
 			$row = $result->fetch_array()
 	?>
 
-			<form role="form" id="GorodEditForm">   				
+			<form role="form" id="StoimostEditForm">        
 
 				<!-- #формирование ниспадающего списка -->
 				<div class="form-group has-feedback">
 					<label for="inputText">Рейс</label>
 					<select id="reis" name = "reis" class="form-control selectpicker show-tick" data-live-search="true" required>
-						<option value="" disabled selected>Рейс</option>
+						<option value="" disabled>Рейс</option>
 				<?php
 					#подготовка запроса
 					$result = $mysqli->query("SELECT id_reis FROM reis ");
 					if ($result)
 				  	{
 						#заполнение списка содержимым
-						while ($row = $result->fetch_array())
-							print "<OPTION value=".$row['id_reis'].">".$row['id_reis']."</OPTION>\n";
+						while ($row1 = $result->fetch_array())
+						{
+							if ($row1['id_reis'] == $row['id_reis'])
+								print "<OPTION value=".$row1['id_reis']." selected>".$row1['id_reis']."</OPTION>\n";
+							else
+								print "<OPTION value=".$row1['id_reis'].">".$row1['id_reis']."</OPTION>\n";
+						}
 					}
 				?>
 					</select>
 				</div>
 
+
 				<!-- #формирование ниспадающего списка -->
 				<div class="form-group has-feedback">
 					<label for="inputText">Класс</label>
 					<select id="class" name = "class" class="form-control selectpicker show-tick" data-live-search="true" required>
-						<option value="" disabled selected>Класс</option>
+						<option value="" disabled>Класс</option>
 				<?php
 					#подготовка запроса
 					$result = $mysqli->query("SELECT id, name FROM class ");
 					if ($result)
 				  	{
 						#заполнение списка содержимым
-						while ($row = $result->fetch_array())
-							print "<OPTION value=".$row['id'].">".$row['name']."</OPTION>\n";
+						while ($row1 = $result->fetch_array())
+						{
+							if ($row1['id'] == $row['id_class'])
+								print "<OPTION value=".$row1['id']." selected>".$row1['name']."</OPTION>\n";
+							else
+								print "<OPTION value=".$row1['id'].">".$row1['name']."</OPTION>\n";
+						}
 					}
 				?>
 					</select>
@@ -85,17 +96,12 @@ $id = $_GET["id"];
 
 				<div class="form-group has-feedback">
 				  <label for="inputText">Стоимость</label>
-				  <input type="text" id="stoimost" name="stoimost" class="form-control" placeholder="Стоимость" required autofocus>
-				  <span class="glyphicon form-control-feedback"></span>
-				</div>
-				<div class="form-group has-feedback">
-				  <label for="inputText">Город</label>
-				  <input type="text" id="gorod" name="gorod" value="<?=$row["name"]?>" class="form-control" placeholder="Название" required autofocus>
+				  <input type="text" id="stoimost" name="stoimost" value="<?=$row["sum"]?>" class="form-control" placeholder="Стоимость" required autofocus>
 				  <span class="glyphicon form-control-feedback"></span>
 				</div>
 
 				<div class="form-group">
-				  <button id="btn_edit" class="btn btn-lg btn-success" type="submit">
+				  <button id="btn_edit" class="btn btn-md btn-success" type="submit">
 				  	<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Обновить
 				  </button>
 				  <input type="hidden" name="id" value=<?=$id?>>
@@ -107,6 +113,6 @@ $id = $_GET["id"];
 	</div>
 </div>
   
-<script src="js/gorod_edit.js"></script>
+<script src="js/stoimost_edit.js"></script>
 
 <?php require 'templates/footer.php' ?>
