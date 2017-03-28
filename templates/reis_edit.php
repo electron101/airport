@@ -120,7 +120,7 @@ $id = $_GET["id_reis"];
 							todayBtn : true,
 							autoclose: true,
 							// format: 'dd-mm-yyyy hh:ii:00'
-							format: 'yyyy-mm-dd hh:mm:ss'
+							format: 'yyyy-mm-dd hh:ii:ss'
 						});
 					});
 				</script>
@@ -151,7 +151,7 @@ $id = $_GET["id_reis"];
 							todayBtn : true,
 							autoclose: true,
 							// format: 'dd-mm-yyyy hh:ii:00'
-							format: 'yyyy-mm-dd hh:mm:ss'
+							format: 'yyyy-mm-dd hh:ii:ss'
 						});
 					});
 				</script>

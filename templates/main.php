@@ -17,6 +17,10 @@ require 'templates/header.php';
 		padding-left: 0px;
 	}
 	
+	.left_ {
+		padding-left: 20px;
+	}
+	
 	.interval {
 		margin-bottom: -20px;
 	}
@@ -31,7 +35,7 @@ require 'templates/header.php';
 	<div class="panel panel-info">
 		<!-- Заголовок контейнера -->
 		<div class="panel-heading panel-title">
-			<h1 class="panel-title">Укажите маршрут, чтобы найти выгодные авиабилеты </h1>
+			<h1 class="panel-title">Укажите маршрут, чтобы найти авиабилеты </h1>
 		</div>
 		<!-- Содержимое контейнера -->
 		<div class="panel-body">
@@ -63,59 +67,62 @@ require 'templates/header.php';
 		</div>
 			
 			<form class="form-inline " role="form" id="SearchTicket">        
-			<div class="row">		
+			<div class="row ">		
 
+			<div class="col-md-3">
 				<!-- #формирование ниспадающего списка -->
-				<div class="col-md-3 ">
 				<div class="form-group has-feedback">
-					<select id="client" name = "client" class="form-control selectpicker show-tick" data-live-search="true" onChange="info_client(this.value)" required>
-						<option value="" disabled selected>Клиент</option>
+					<!-- <label for="inputText">От куда</label> -->
+					<select id="gorod_vilet" name = "gorod_vilet" class="form-control selectpicker show-tick" data-live-search="true" required>
+						<option value="" disabled selected>Город отправления</option>
 				<?php
 					#подготовка запроса
-					$result = $mysqli->query("SELECT id, fio FROM clients");
+					$result = $mysqli->query("SELECT id, name FROM gorod ");
 					if ($result)
 				  	{
 						#заполнение списка содержимым
 						while ($row = $result->fetch_array())
-							print "<OPTION value=".$row['id'].">".$row['fio']."</OPTION>\n";
+							print "<OPTION value=".$row['id'].">".$row['name']."</OPTION>\n";
 					}
 				?>
 					</select>
 				</div>
-				</div>
+			</div>
 				
+			<div class="col-md-3">
 				<!-- #формирование ниспадающего списка -->
-				<div class="col-md-3 ">
 				<div class="form-group has-feedback">
-					<select id="client" name = "client" class="form-control selectpicker show-tick" data-live-search="true" onChange="info_client(this.value)" required>
-						<option value="" disabled selected>Клиент</option>
+					<!-- <label for="inputText">Куда</label> -->
+					<select id="gorod_posadka" name = "gorod_posadka" class="form-control selectpicker show-tick" data-live-search="true" required>
+						<option value="" disabled selected>Город прибытия</option>
 				<?php
 					#подготовка запроса
-					$result = $mysqli->query("SELECT id, fio FROM clients");
+					$result = $mysqli->query("SELECT id, name FROM gorod ");
 					if ($result)
 				  	{
 						#заполнение списка содержимым
 						while ($row = $result->fetch_array())
-							print "<OPTION value=".$row['id'].">".$row['fio']."</OPTION>\n";
+							print "<OPTION value=".$row['id'].">".$row['name']."</OPTION>\n";
 					}
 				?>
 					</select>
 				</div>
-				</div>
+			</div>
 	
-				<div class="col-md-3 ">
+			<div class="col-md-4">
 				<div class="form-group has-feedback">
+					<!-- <label for="inputText">Дата</label> -->
 				<!-- Элемент HTML с id равным datetimepicker1 -->
-				  <div class=" input-group date input-append" id="datetimepicker_start">
+				  <div class=" input-group date input-append" id="datetimepicker_vilet">
 					<span class="input-group-addon">
 					  <i class="fa fa-calendar"></i>
 					</span>
-					<input type="text"  name="date_start" class="form-control input-sm" required>
+					<input type="text" id="date_vilet" name="date_vilet" class="form-control input-md" required>
 					</input>
 					<span class="glyphicon form-control-feedback"></span>
 				  </div>
-				  </div>
 				</div>
+			</div>
 				<!-- Инициализация виджета "Bootstrap datetimepicker" -->
 				<script type="text/javascript">
 					$(function () 
@@ -123,17 +130,18 @@ require 'templates/header.php';
 					// Идентификатор элемента HTML (например: #datetimepicker1), 
 					// datetimepicker для которого необходимо инициализировать 
 					// виджет "Bootstrap datetimepicker"
-						$('#datetimepicker_start').datetimepicker({
-							minView : 2,
-							defaultDate: new Date(),
-							// defaultDate: "11/1/2013",
+						$('#datetimepicker_vilet').datetimepicker({
+							startDate: new Date(),
+							minuteStep: 15,
+							// todayBtn : true,
 							autoclose: true,
-							format: 'dd-mm-yyyy'
+							// format: 'dd-mm-yyyy hh:ii:00'
+							format: 'yyyy-mm-dd hh:ii:00'
 						});
 					});
 				</script>
 
-				<div class="col-md-3 ">
+				<div class="col-md-2 ">
 					<div class="form-group pull-right">
 					  <button id="btn_search" class="btn btn-info " type="submit">
 						<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Найти билеты</button>
