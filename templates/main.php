@@ -66,7 +66,7 @@ require 'templates/header.php';
 			</div>
 		</div>
 			
-			<form class="form-inline " role="form" id="SearchTicket">        
+			<form class="form-inline " role="form" id="SearchTicketForm">        
 			<div class="row ">		
 
 			<div class="col-md-3">
@@ -132,11 +132,13 @@ require 'templates/header.php';
 					// виджет "Bootstrap datetimepicker"
 						$('#datetimepicker_vilet').datetimepicker({
 							startDate: new Date(),
-							minuteStep: 15,
+							minView: 2,
+							// minuteStep: 15,
 							// todayBtn : true,
-							autoclose: true,
-							// format: 'dd-mm-yyyy hh:ii:00'
-							format: 'yyyy-mm-dd hh:ii:00'
+							autoclose: true, 
+							format: 'dd-mm-yyyy'
+							// format: 'yyyy-mm-dd hh:ii:00'
+							// format: 'yyyy-mm-dd'
 						});
 					});
 				</script>
