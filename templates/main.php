@@ -6,6 +6,7 @@ if (IS_ADMIN)
 	exit(0);
 }
 require 'templates/header.php';
+include_once('../connect_bd.php');
 ?>
 
 <style>
@@ -54,6 +55,14 @@ require 'templates/header.php';
 					<span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Назад</a>
 			</div>
 			
+<?php
+if (isset($_POST['gorod_vilet']))
+	echo $_POST['gorod_vilet'];
+else
+	echo "NO SOSACING";
+?>
+
+
 		<div class="row">		
 			<div class="col-md-3">
 					<label for="inputText">От куда</label>
@@ -66,7 +75,7 @@ require 'templates/header.php';
 			</div>
 		</div>
 			
-			<form class="form-inline " role="form" id="SearchTicketForm">        
+			<form method = "POST" action = "" class="form-inline " role="form" id="SearchTicketForm">        
 			<div class="row ">		
 
 			<div class="col-md-3">
@@ -152,10 +161,175 @@ require 'templates/header.php';
 
 				</div>
 			</form>
+
+<?php
+
+		$date_vilet    = $_POST["date_vilet"];
+		$gorod_vilet   = $_POST["gorod_vilet"];
+		$gorod_posadka = $_POST["gorod_posadka"];
+		
+		$date_vilet_start = $date_vilet." 00:00:00";
+		$date_vilet_end   = $date_vilet." 23:59:59";
+
+		$result = $mysqli->query("SELECT * FROM reis WHERE id_gorod_vilet = '$gorod_vilet' AND id_gorod_posadka = '$gorod_posadka' AND colvo_mest > 0 AND date_time_vilet BETWEEN STR_TO_DATE('$date_vilet_start', '%d-%m-%Y %H:%i:%s') AND STR_TO_DATE('$date_vilet_end', '%d-%m-%Y %H:%i:%s')");
+		
+		if ($result):?>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover " style=" font-size: 14px;" >
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Дата вылета</th>
+                            <th>Дата посадки</th>
+                            <th>Откуда</th>
+                            <th>Куда</th>
+                            <th>Бортовой номер</th>
+                            <th>Количество мест</th>
+                            <th class="text-right">Действие</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <form role="form" id="Form">
+	<?php while ($row = $result->fetch_assoc()):?>
+	 					<tr>
+                            <td style=" vertical-align: middle; "><small class=""><?=$row["id_reis"]?></small>
+                            </td>
+
+                            <td style=" vertical-align: middle; "><small class=""><?=$row["date_time_vilet"]?></small>
+                            </td>
+
+                            <td style=" vertical-align: middle; "><small class=""><?=$row["date_time_posadka"]?></small>
+                            </td>
+
+                            <td style=" vertical-align: middle; "><small class=""><?=$row["gorod_vilet"]?></small>
+                            </td>
+
+                            <td style=" vertical-align: middle; "><small class=""><?=$row["gorod_posadka"]?></small>
+                            </td>
+
+                            <td style=" vertical-align: middle; "><small class=""><?=$row["bort_num"]?></small>
+                            </td>
+                            <td style=" vertical-align: middle; "><small class=""><?=$row["colvo_mest"]?></small>
+							</td>
+
+                            <td class="text-right">
+                                <div class="btn-group btn-group-xs ">
+
+                                    <button data-original-title="Редактировать" id="sort_list" value="main" type="button" class="btn btn-primary " data-toggle="tooltip" data-placement="bottom" title="" onclick="return edit('<?=$row["id_reis"]?>')"><i class="fa fa-edit"></i> </button>
+
+                                    <button data-original-title="Удалить" id="sort_list" value="free" type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="" onclick="return del('<?=$row["id_reis"]?>')"><i class="fa fa-trash"></i> </button>
+
+                                </div>
+                            </td>
+                            
+                        </tr>
+    <?php endwhile;?>
+                        </form>
+    				</tbody>
+                </table>
+            </div>
+
+	<?php endif;
+
+    $result->free();
+	$mysqli->close();
+?>
+
 		</div>
 	</div>
 </div>
 
-<script src="js/search_ticket.js"></script>
+<!-- <script src="js/search_ticket.js"></script> -->
 
-<?php require 'templates/footer.php' ?>
+<script>
+$(function() 
+{
+  //при отправке нажатии на кнопку отправления данных
+  $('#btn_search').click(function(event) 
+  {
+	//отменить стандартное действие браузера
+	event.preventDefault();
+	//завести переменную, которая будет говорить о том валидная форма или нет
+	var formValid = true;
+	//перебирает все элементы управления формы (input и textarea) 
+	$('#SearchTicketForm input,textarea').each(function() 
+	{
+	  //найти предков, имеющих класс .form-group (для установления success/error)
+	  var formGroup = $(this).parents('.form-group');
+	  //найти glyphicon (иконка успеха или ошибки)
+	  var glyphicon = formGroup.find('.form-control-feedback');
+	  //валидация данных с помощью HTML5 функции checkValidity
+	  if (this.checkValidity()) 
+	  {
+		//добавить к formGroup класс .has-success и удалить .has-error
+		formGroup.addClass('has-success').removeClass('has-error');
+		//добавить к glyphicon класс .glyphicon-ok и удалить .glyphicon-remove
+		glyphicon.addClass('glyphicon-ok').removeClass('glyphicon-remove');
+	  } 
+	  else 
+	  {
+		//добавить к formGroup класс .has-error и удалить .has-success
+		formGroup.addClass('has-error').removeClass('has-success');
+		//добавить к glyphicon класс glyphicon-remove и удалить glyphicon-ok
+		glyphicon.addClass('glyphicon-remove').removeClass('glyphicon-ok');
+		//если элемент не прошёл проверку, то отметить форму как не валидную 
+		formValid = false;  
+	  }	  
+	  
+	  var gorod_vilet   = $("#gorod_vilet").val();
+	  var gorod_posadka = $("#gorod_posadka").val();
+
+		if (gorod_vilet == null) 
+		{		
+			// получаем элемент, содержащий пароль
+			inputclient = $("#gorod_vilet");
+			//найти предка, имеющего класс .form-group (для установления success/error)
+			formGroupclient = inputclient.parents('.form-group');
+			//добавить к formGroup класс .has-error и удалить .has-success
+			formGroupclient.addClass('has-error').removeClass('has-success');
+			
+			formValid = false;
+		}  
+		
+		if (gorod_posadka == null) 
+		{		
+			// получаем элемент, содержащий пароль
+			inputclient = $("#gorod_posadka");
+			//найти предка, имеющего класс .form-group (для установления success/error)
+			formGroupclient = inputclient.parents('.form-group');
+			//добавить к formGroup класс .has-error и удалить .has-success
+			formGroupclient.addClass('has-error').removeClass('has-success');
+			
+			formValid = false;
+		}  
+	});
+
+	//если форма валидна, то
+	if (formValid) 
+	{	
+		var str = $('#SearchTicketForm').serialize();
+
+		$.ajax(
+		{
+			url: "scripts/ticket_show.php",
+			type: "POST",
+			dataType:"json",
+			data: str,
+
+			success:function(msg)
+			{
+				// echo JSON::encode($data);
+				// <?php echo $msg ?>
+			},
+			error:function(x,s,d)
+			{
+				alert(d);
+			}
+		});
+	}
+  });
+});
+</script>
+
+
+<?php require 'templates/footer.php'; ?>
