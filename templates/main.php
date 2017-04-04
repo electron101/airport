@@ -164,14 +164,23 @@ else
 
 <?php
 
-		$date_vilet    = $_POST["date_vilet"];
-		$gorod_vilet   = $_POST["gorod_vilet"];
-		$gorod_posadka = $_POST["gorod_posadka"];
-		
-		$date_vilet_start = $date_vilet." 00:00:00";
-		$date_vilet_end   = $date_vilet." 23:59:59";
+	$date_vilet    = $_POST["date_vilet"];
+	$gorod_vilet   = $_POST["gorod_vilet"];
+	$gorod_posadka = $_POST["gorod_posadka"];
+	
+	$date_vilet_start = $date_vilet." 00:00:00";
+	$date_vilet_end   = $date_vilet." 23:59:59";
 
-		$result = $mysqli->query("SELECT * FROM reis WHERE id_gorod_vilet = '$gorod_vilet' AND id_gorod_posadka = '$gorod_posadka' AND colvo_mest > 0 AND date_time_vilet BETWEEN STR_TO_DATE('$date_vilet_start', '%d-%m-%Y %H:%i:%s') AND STR_TO_DATE('$date_vilet_end', '%d-%m-%Y %H:%i:%s')");
+	$result = $mysqli->query("SELECT reis.id_reis, reis.date_time_vilet, reis.date_time_posadka, 
+									 g1.name as gorod_vilet, g2.name as gorod_posadka, 
+									 samolet.bort_num, reis.colvo_mest FROM reis JOIN gorod as g1 
+									 ON reis.id_gorod_vilet = g1.id JOIN gorod as g2 ON 
+									 reis.id_gorod_posadka = g2.id JOIN samolet ON 
+									 reis.id_samolet = samolet.id WHERE reis.id_gorod_vilet = 
+									 '$gorod_vilet' AND reis.id_gorod_posadka = '$gorod_posadka' 
+									 AND reis.colvo_mest > 0 AND reis.date_time_vilet BETWEEN 
+									 STR_TO_DATE('$date_vilet_start', '%d-%m-%Y %H:%i:%s') AND 
+									 STR_TO_DATE('$date_vilet_end', '%d-%m-%Y %H:%i:%s')");
 		
 		if ($result):?>
             <div class="table-responsive">
