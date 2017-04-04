@@ -33,10 +33,10 @@ include_once('../connect_bd.php');
 
 <div class="col-sm-12 col-sm-offset-0 left_krai">
 <!-- Контейнер, содержащий форму обратной связи -->
-	<div class="panel panel-info">
+	<div class="box box-primary">
 		<!-- Заголовок контейнера -->
-		<div class="panel-heading panel-title">
-			<h1 class="panel-title">Укажите маршрут, чтобы найти авиабилеты </h1>
+		<div class="box-header with-border">
+			<h3 class="box-title">Укажите маршрут, чтобы найти авиабилеты </h3>
 		</div>
 		<!-- Содержимое контейнера -->
 		<div class="panel-body">
@@ -55,13 +55,6 @@ include_once('../connect_bd.php');
 					<span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Назад</a>
 			</div>
 			
-<?php
-if (isset($_POST['gorod_vilet']))
-	echo $_POST['gorod_vilet'];
-else
-	echo "NO SOSACING";
-?>
-
 
 		<div class="row">		
 			<div class="col-md-3">
@@ -81,17 +74,21 @@ else
 			<div class="col-md-3">
 				<!-- #формирование ниспадающего списка -->
 				<div class="form-group has-feedback">
-					<!-- <label for="inputText">От куда</label> -->
 					<select id="gorod_vilet" name = "gorod_vilet" class="form-control selectpicker show-tick" data-live-search="true" required>
-						<option value="" disabled selected>Город отправления</option>
+						<option value="" disabled>Город отправлеия</option>
 				<?php
 					#подготовка запроса
 					$result = $mysqli->query("SELECT id, name FROM gorod ");
 					if ($result)
 				  	{
 						#заполнение списка содержимым
-						while ($row = $result->fetch_array())
-							print "<OPTION value=".$row['id'].">".$row['name']."</OPTION>\n";
+						while ($row1 = $result->fetch_array())
+						{
+							if ($row1['id'] == $_POST['gorod_vilet'])
+								print "<OPTION value=".$row1['id']." selected>".$row1['name']."</OPTION>\n";
+							else
+								print "<OPTION value=".$row1['id'].">".$row1['name']."</OPTION>\n";
+						}
 					}
 				?>
 					</select>
@@ -101,17 +98,21 @@ else
 			<div class="col-md-3">
 				<!-- #формирование ниспадающего списка -->
 				<div class="form-group has-feedback">
-					<!-- <label for="inputText">Куда</label> -->
 					<select id="gorod_posadka" name = "gorod_posadka" class="form-control selectpicker show-tick" data-live-search="true" required>
-						<option value="" disabled selected>Город прибытия</option>
+						<option value="" disabled>Город прибытия</option>
 				<?php
 					#подготовка запроса
 					$result = $mysqli->query("SELECT id, name FROM gorod ");
 					if ($result)
 				  	{
 						#заполнение списка содержимым
-						while ($row = $result->fetch_array())
-							print "<OPTION value=".$row['id'].">".$row['name']."</OPTION>\n";
+						while ($row1 = $result->fetch_array())
+						{
+							if ($row1['id'] == $_POST['gorod_posadka'])
+								print "<OPTION value=".$row1['id']." selected>".$row1['name']."</OPTION>\n";
+							else
+								print "<OPTION value=".$row1['id'].">".$row1['name']."</OPTION>\n";
+						}
 					}
 				?>
 					</select>
@@ -126,7 +127,7 @@ else
 					<span class="input-group-addon">
 					  <i class="fa fa-calendar"></i>
 					</span>
-					<input type="text" id="date_vilet" name="date_vilet" class="form-control input-md" required>
+					<input type="text" id="date_vilet" name="date_vilet" value="<?=$_POST["date_vilet"]?>" class="form-control input-md" required>
 					</input>
 					<span class="glyphicon form-control-feedback"></span>
 				  </div>
@@ -156,6 +157,7 @@ else
 					<div class="form-group pull-right">
 					  <button id="btn_search" class="btn btn-info " type="submit">
 						<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Найти билеты</button>
+				  <input type="hidden" name="id_reis" value=<?=$id?>>
 					</div>
 				</div>
 
@@ -163,6 +165,9 @@ else
 			</form>
 
 <?php
+
+if (!empty($_POST)) 
+{
 
 	$date_vilet    = $_POST["date_vilet"];
 	$gorod_vilet   = $_POST["gorod_vilet"];
@@ -183,6 +188,7 @@ else
 									 STR_TO_DATE('$date_vilet_end', '%d-%m-%Y %H:%i:%s')");
 		
 		if ($result):?>
+			<br>
             <div class="table-responsive">
                 <table class="table table-bordered table-hover " style=" font-size: 14px;" >
                     <thead>
@@ -224,9 +230,9 @@ else
                             <td class="text-right">
                                 <div class="btn-group btn-group-xs ">
 
-                                    <button data-original-title="Редактировать" id="sort_list" value="main" type="button" class="btn btn-primary " data-toggle="tooltip" data-placement="bottom" title="" onclick="return edit('<?=$row["id_reis"]?>')"><i class="fa fa-edit"></i> </button>
-
-                                    <button data-original-title="Удалить" id="sort_list" value="free" type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="" onclick="return del('<?=$row["id_reis"]?>')"><i class="fa fa-trash"></i> </button>
+								<button id="btn_kupit" class="btn btn-info " type="submit">
+									<i class="fa fa-shopping-cart"></i> Купить
+								</button>
 
                                 </div>
                             </td>
@@ -242,6 +248,7 @@ else
 
     $result->free();
 	$mysqli->close();
+}
 ?>
 
 		</div>

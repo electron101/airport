@@ -26,6 +26,7 @@
 	{
           padding-top: 50px;
           margin-left: -10px;
+		  background-color: #ecf0f5;	
 	}
 
         .vniz{
