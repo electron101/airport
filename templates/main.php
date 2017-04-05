@@ -57,21 +57,24 @@ include_once('../connect_bd.php');
 			
 
 		<div class="row">		
-			<div class="col-md-3">
+			<div class="col-md-2">
 					<label for="inputText">От куда</label>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-2">
 					<label for="inputText">Куда</label>
 			</div>
 			<div class="col-md-3">
 					<label for="inputText">Дата</label>
+			</div>
+			<div class="col-md-2">
+					<label for="inputText">Класс</label>
 			</div>
 		</div>
 			
 			<form method = "POST" action = "" class="form-inline " role="form" id="SearchTicketForm">        
 			<div class="row ">		
 
-			<div class="col-md-3">
+			<div class="col-md-2">
 				<!-- #формирование ниспадающего списка -->
 				<div class="form-group has-feedback">
 					<select id="gorod_vilet" name = "gorod_vilet" class="form-control selectpicker show-tick" data-live-search="true" required>
@@ -95,7 +98,7 @@ include_once('../connect_bd.php');
 				</div>
 			</div>
 				
-			<div class="col-md-3">
+			<div class="col-md-2">
 				<!-- #формирование ниспадающего списка -->
 				<div class="form-group has-feedback">
 					<select id="gorod_posadka" name = "gorod_posadka" class="form-control selectpicker show-tick" data-live-search="true" required>
@@ -119,7 +122,7 @@ include_once('../connect_bd.php');
 				</div>
 			</div>
 	
-			<div class="col-md-4">
+			<div class="col-md-3">
 				<div class="form-group has-feedback">
 					<!-- <label for="inputText">Дата</label> -->
 				<!-- Элемент HTML с id равным datetimepicker1 -->
@@ -153,6 +156,30 @@ include_once('../connect_bd.php');
 					});
 				</script>
 
+			<div class="col-md-3">
+				<!-- #формирование ниспадающего списка -->
+				<div class="form-group has-feedback">
+					<select id="class" name = "class" class="form-control selectpicker show-tick" data-live-search="true" required>
+						<option value="" disabled>Класс</option>
+				<?php
+					#подготовка запроса
+					$result = $mysqli->query("SELECT id, name FROM class ");
+					if ($result)
+				  	{
+						#заполнение списка содержимым
+						while ($row1 = $result->fetch_array())
+						{
+							if ($row1['id'] == $_POST['class'])
+								print "<OPTION value=".$row1['id']." selected>".$row1['name']."</OPTION>\n";
+							else
+								print "<OPTION value=".$row1['id'].">".$row1['name']."</OPTION>\n";
+						}
+					}
+				?>
+					</select>
+				</div>
+			</div>
+
 				<div class="col-md-2 ">
 					<div class="form-group pull-right">
 					  <button id="btn_search" class="btn btn-info " type="submit">
@@ -172,20 +199,23 @@ if (!empty($_POST))
 	$date_vilet    = $_POST["date_vilet"];
 	$gorod_vilet   = $_POST["gorod_vilet"];
 	$gorod_posadka = $_POST["gorod_posadka"];
+	$class         = $_POST["class"];
 	
 	$date_vilet_start = $date_vilet." 00:00:00";
 	$date_vilet_end   = $date_vilet." 23:59:59";
 
 	$result = $mysqli->query("SELECT reis.id_reis, reis.date_time_vilet, reis.date_time_posadka, 
 									 g1.name as gorod_vilet, g2.name as gorod_posadka, 
-									 samolet.bort_num, reis.colvo_mest FROM reis JOIN gorod as g1 
+									 samolet.bort_num, stoimost.sum FROM reis JOIN gorod as g1 
 									 ON reis.id_gorod_vilet = g1.id JOIN gorod as g2 ON 
 									 reis.id_gorod_posadka = g2.id JOIN samolet ON 
-									 reis.id_samolet = samolet.id WHERE reis.id_gorod_vilet = 
+									 reis.id_samolet = samolet.id JOIN stoimost ON 
+									 reis.id_reis = stoimost.id_reis WHERE reis.id_gorod_vilet = 
 									 '$gorod_vilet' AND reis.id_gorod_posadka = '$gorod_posadka' 
 									 AND reis.colvo_mest > 0 AND reis.date_time_vilet BETWEEN 
 									 STR_TO_DATE('$date_vilet_start', '%d-%m-%Y %H:%i:%s') AND 
-									 STR_TO_DATE('$date_vilet_end', '%d-%m-%Y %H:%i:%s')");
+									 STR_TO_DATE('$date_vilet_end', '%d-%m-%Y %H:%i:%s') AND
+									 stoimost.id_class = '$class' ");
 		
 		if ($result):?>
 			<br>
@@ -199,12 +229,12 @@ if (!empty($_POST))
                             <th>Откуда</th>
                             <th>Куда</th>
                             <th>Бортовой номер</th>
-                            <th>Количество мест</th>
+                            <th>Стоимость</th>
                             <th class="text-right">Действие</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <form role="form" id="Form">
+                        <form role="form" id="FormKupit">
 	<?php while ($row = $result->fetch_assoc()):?>
 	 					<tr>
                             <td style=" vertical-align: middle; "><small class=""><?=$row["id_reis"]?></small>
@@ -224,7 +254,7 @@ if (!empty($_POST))
 
                             <td style=" vertical-align: middle; "><small class=""><?=$row["bort_num"]?></small>
                             </td>
-                            <td style=" vertical-align: middle; "><small class=""><?=$row["colvo_mest"]?></small>
+                            <td style=" vertical-align: middle; "><small class=""><?=$row["sum"]?></small>
 							</td>
 
                             <td class="text-right">
@@ -233,7 +263,7 @@ if (!empty($_POST))
 								<button id="btn_kupit" class="btn btn-info " type="submit">
 									<i class="fa fa-shopping-cart"></i> Купить
 								</button>
-
+								  <input type="hidden" name="id_reis" value=<?=$row['id_reis']?>>
                                 </div>
                             </td>
                             
