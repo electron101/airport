@@ -195,18 +195,17 @@ include_once('../connect_bd.php');
 
 if (!empty($_POST)) 
 {
-
-	$date_vilet    = $_POST["date_vilet"];
-	$gorod_vilet   = $_POST["gorod_vilet"];
-	$gorod_posadka = $_POST["gorod_posadka"];
-	$class         = $_POST["class"];
+	$date_vilet       = $_POST["date_vilet"];
+	$gorod_vilet      = $_POST["gorod_vilet"];
+	$gorod_posadka    = $_POST["gorod_posadka"];
+	$class            = $_POST["class"];
 	
 	$date_vilet_start = $date_vilet." 00:00:00";
 	$date_vilet_end   = $date_vilet." 23:59:59";
 
 	$result = $mysqli->query("SELECT reis.id_reis, reis.date_time_vilet, reis.date_time_posadka, 
 									 g1.name as gorod_vilet, g2.name as gorod_posadka, 
-									 samolet.bort_num, stoimost.sum FROM reis JOIN gorod as g1 
+									 samolet.bort_num, stoimost.sum, stoimost.id FROM reis JOIN gorod as g1 
 									 ON reis.id_gorod_vilet = g1.id JOIN gorod as g2 ON 
 									 reis.id_gorod_posadka = g2.id JOIN samolet ON 
 									 reis.id_samolet = samolet.id JOIN stoimost ON 
@@ -234,7 +233,7 @@ if (!empty($_POST))
                         </tr>
                     </thead>
                     <tbody>
-                        <form role="form" id="FormKupit">
+						<form method="POST" action="?act=passajir" role="form" id="FormKupit">
 	<?php while ($row = $result->fetch_assoc()):?>
 	 					<tr>
                             <td style=" vertical-align: middle; "><small class=""><?=$row["id_reis"]?></small>
@@ -264,6 +263,7 @@ if (!empty($_POST))
 									<i class="fa fa-shopping-cart"></i> Купить
 								</button>
 								  <input type="hidden" name="id_reis" value=<?=$row['id_reis']?>>
+								  <input type="hidden" name="id_stoimost" value=<?=$row['id']?>>
                                 </div>
                             </td>
                             
@@ -376,6 +376,5 @@ $(function()
   });
 });
 </script>
-
 
 <?php require 'templates/footer.php'; ?>

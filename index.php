@@ -91,6 +91,14 @@ switch ($act)
 		require 'templates/stoimost_edit.php';
 		break;
 
+	case 'passajir':
+		require 'templates/passajir.php';
+		break;
+	
+	case 'oplata_karta':
+		require 'templates/oplata_karta.php';
+		break;
+
 	case 'logout':		
 		unset($_SESSION['id_user']);
 		unset($_SESSION['login']);
