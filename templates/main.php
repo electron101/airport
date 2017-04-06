@@ -15,23 +15,15 @@ include_once('../connect_bd.php');
 	}    
 
 	.left_krai {
-		padding-left: 0px;
+		margin-left: 0px;
 	}
 	
-	.left_ {
-		padding-left: 20px;
-	}
-	
-	.interval {
-		margin-bottom: -20px;
-	}
-
 	textarea {
     resize: none; /* Запрещаем изменять размер */
    } 
 </style>
 
-<div class="col-sm-12 col-sm-offset-0 left_krai">
+<div class="col-md-12 col-md-offset-0 left_krai">
 <!-- Контейнер, содержащий форму обратной связи -->
 	<div class="box box-primary">
 		<!-- Заголовок контейнера -->
@@ -39,7 +31,7 @@ include_once('../connect_bd.php');
 			<h3 class="box-title">Укажите маршрут, чтобы найти авиабилеты </h3>
 		</div>
 		<!-- Содержимое контейнера -->
-		<div class="panel-body">
+		<div class="box-body">
 						
 			<div class="alert alert-success hidden" id="success-alert">
 				<strong>Успешно!</strong> Запись добавлена

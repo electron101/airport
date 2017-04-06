@@ -13,13 +13,13 @@ require 'templates/header.php';
 
 <div class="col-md-5 col-md-offset-3 left_krai">
 <!-- Контейнер, содержащий форму обратной связи -->
-	<div class="panel panel-info">
+	<div class="box box-primary ">
 		<!-- Заголовок контейнера -->
-		<div class="panel-heading panel-title">
-			<h1 class="panel-title">Регистрация</h1>
+	<div class="box-header with-border">
+			<h3 class="box-title">Регистрация</h3>
 		</div>
 		<!-- Содержимое контейнера -->
-		<div class="panel-body">
+		<div class="box-body">
 						
 			<div class="alert alert-success hidden" id="success-alert">
 				<strong>Успешно!</strong> Запись добавлена

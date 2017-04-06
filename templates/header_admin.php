@@ -173,75 +173,37 @@
     <div class="content-wrapper">
     <!-- <div class="row"> -->
 
-
         <div class="sidebar">
 
             <ul class="sidebar-menu">
-                <li class="active">
-                    <a href="?act=lk">
-                        <i class="fa fa-home"></i> <span>
-                        Личный кабинет</span>
-                    </a>
+
+				<li class="active"> 
+					<a href="?act=bilet"> <i class="fa fa-home"></i> Билеты </a>
                 </li>                
-                <li>
+   
+				<li>
                     <a href="?act=gorod"><i class="fa fa-circle-o"></i> Города</a>
                 </li>                   
-                <li>
+   
+				<li>
                     <a href="?act=samolet"><i class="fa fa-plane"></i> Самолёты</a>
                 </li>                   
-                <li>
+   
+				<li>
                     <a href="?act=reis"><i class="fa fa-list"></i> Рейсы</a>
                 </li>                   
+
 				<li>
 					<a href="?act=class"><i class="fa fa-thumbs-up"></i> Классы</a>
                 </li>                   
+
 				<li>
 					<a href="?act=stoimost"><i class="fa fa-thumbs-up"></i> Стоимость билета</a>
                 </li>                   
 
-				<?php
-                    $result = $mysqli->query("SELECT COUNT(*) as count FROM tickets WHERE user_to_id = '".$_SESSION["id_user"]."' AND status = 2");
-                    if ($result)
-                        $row_vhod = $result->fetch_array();
-                ?>                            
-                <li>
-                    <a href="?act=ticket_list"><i class="fa fa-list-alt"></i> Список заявок 
-                        <small id="tt_label">
-                        <?php                         
-                            if ($row_vhod["count"] != 0):?>
-                            <small class="badge pull-right bg-red"><?=$row_vhod["count"]?></small>
-                        <?php endif ?>
-                        </small></a>
-                </li>
-                <li>
-                    <a href="?act=news"><i class="fa fa-bullhorn"></i> Новости</a>
-                </li>
-                <li>
-                    <a href="?act=client"><i class="fa fa-street-view "></i>  Клиенты</a>
-                </li>
                 <li>
                     <a href="?act=smena_pw"><i class="fa fa-refresh"></i>  Смена пароля</a>
                 </li>  
-                <li>
-                    <a href="?act=user"><i class="fa fa-users"></i> Пользователи системы</a>
-                </li>
-                <li class="treeview ">
-                    <a href="#">
-                        <i class="fa fa-book"></i><span> Справочники</span><i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li>
-                            <a href="?act=otdel"><i class="fa fa-sitemap"></i> Отделы клиентов</a>
-                        </li>
-                        <li>
-                            <a href="?act=doljn"><i class="fa fa-male"></i> Должности клиентов</a>
-                        </li>
-                    </ul>
-                </li> 
-                
-				<li>
-					<a href='?act=report_otdel'><i class="fa fa-line-chart"></i> Общая статистика</a>
-				</li>
                        
             </ul>
 

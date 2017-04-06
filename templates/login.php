@@ -113,6 +113,12 @@
 		<button id="btn_login" class="btn btn-lg btn-primary btn-block" 
 			type="submit">Войти
 		</button>
+	
+		<br>
+
+		<a class="btn btn-lg btn-success btn-block" href="?act=main" role="button">
+			Заказать билет
+		</a>  
 	</form>
 
 	</div>
