@@ -256,6 +256,13 @@ if (!empty($_POST))
 								</button>
 								  <input type="hidden" name="id_reis" value=<?=$row['id_reis']?>>
 								  <input type="hidden" name="id_stoimost" value=<?=$row['id']?>>
+								  <input type="hidden" name="date_vilet" value=<?=$row['date_time_vilet']?>>
+								  <input type="hidden" name="date_posadka" value=<?=$row['date_time_posadka']?>>
+								  <input type="hidden" name="gorod_vilet" value=<?=$row['gorod_vilet']?>>
+								  <input type="hidden" name="gorod_posadka" value=<?=$row['gorod_posadka']?>>
+								  <input type="hidden" name="bort_num" value=<?=$row['bort_num']?>>
+								  <input type="hidden" name="sum" value=<?=$row['sum']?>>
+								  <input type="hidden" name="class" value=<?=$class?>>
                                 </div>
                             </td>
                             

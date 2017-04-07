@@ -33,13 +33,73 @@ include_once('../connect_bd.php');
 
 <div class="col-sm-6 col-sm-offset-3 ">
 <!-- Контейнер, содержащий форму обратной связи -->
+	<div class="box box-success ">
+		<!-- Заголовок контейнера -->
+		<div class="box-header with-border">
+			<h3 class="box-title">Информация о рейсе </h3>
+		</div>
+		<!-- Содержимое контейнера -->
+		<div class="box-body ">
+
+			<small class="box-tools pull-right text-muted">
+				<i class="fa fa-clock-o"></i>
+				<time id="c" datetime="">
+				<span>
+					<?php 
+						setlocale(LC_ALL, 'ru_RU.UTF8'); 
+						echo strftime("%a, %e %B %Y %H:%M:%S", strtotime($_POST["date_vilet"])) ." - ";
+						echo strftime("%a, %e %B %Y %H:%M:%S", strtotime($_POST["date_posadka"]));
+					?>
+				</span>
+				</time> 
+			</small>
+			
+			<br>
+
+			<table class="table table-bordered">
+				<tbody>
+					<tr style="width:50%">
+						<td><small class="text-muted">Откуда: </small></td>
+						<td><small><?=$_POST["gorod_vilet"]?></small></td>
+						
+						<td><small class="text-muted">Куда:</small> </td>
+						<td><small><?=$_POST["gorod_posadka"]?></small></td>
+					</tr>
+					<tr>
+						<td><small class="text-muted">Бортовой номер: </small></td>
+						<td><small><?=$_POST["bort_num"]?></small></td>
+						<td><small class="text-muted">Класс:</small> </td>
+						<td><small>
+						<?php
+						$class = $_POST['class'];
+						$result = $mysqli->query("SELECT name 
+													FROM class 
+													WHERE id = '$class'");
+						if ($result)
+							$row_class = $result->fetch_array();
+						?>				
+						<?=$row_class["name"]?>
+						</small>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+
+
+			<div class="text-muted well well-sm no-shadow" style="margin-top: 10px;   background-color: #FDFDFD;  word-wrap: break-word;"><?=$row["msg"]?>
+			</div>
+							
+
+
+	</div>
+	</div>
 	<div class="box box-primary ">
 		<!-- Заголовок контейнера -->
 		<div class="box-header with-border">
 			<h3 class="box-title">Информация о пассажире </h3>
 		</div>
 		<!-- Содержимое контейнера -->
-		<div class="panel-body ">
+		<div class="box-body ">
 						
 			<form method = "POST" action = "?act=oplata_karta" role="form" id="Form">        
 
@@ -112,14 +172,12 @@ include_once('../connect_bd.php');
 				<div class="form-group pull-right">
 				  <button id="btn_passport" class="btn btn-info " type="submit">
 					<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Перейти к оплате картой</button>
+				</div>
 				  <input type="hidden" name="id_reis" value=<?=$_POST['id_reis']?>>
 				  <input type="hidden" name="id_stoimost" value=<?=$_POST['id_stoimost']?>>
-				</div>
 
 			</form>
 
-		</div>
-	</div>
 </div>
 
 <?php require 'templates/footer.php'; ?>
