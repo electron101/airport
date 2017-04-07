@@ -181,3 +181,4 @@ include_once('../connect_bd.php');
 </div>
 
 <?php require 'templates/footer.php'; ?>
+
